@@ -67,7 +67,7 @@ public class DistributedScheduledMethodRunnable implements Runnable {
             if (Objects.isNull(annotation)) {
                 throw new RuntimeException("获取方法上的分布式注解失败");
             }
-            String name = method.getName();
+            String name = method.getDeclaringClass().getName()+method.getName();
             boolean b = RedisUtils.tryLock(name, 5);
             if (b) {
                 ReflectionUtils.makeAccessible(this.method);
@@ -78,7 +78,7 @@ public class DistributedScheduledMethodRunnable implements Runnable {
         } catch (IllegalAccessException ex) {
             throw new UndeclaredThrowableException(ex);
         } finally {
-            RedisUtils.delete(method.getName());
+            RedisUtils.delete( method.getDeclaringClass().getName()+method.getName());
         }
     }
 

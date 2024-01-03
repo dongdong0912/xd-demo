@@ -10,6 +10,7 @@ import net.sf.jsqlparser.statement.select.SelectExpressionItem;
 import java.util.List;
 
 /**
+ * sql解析学习
  * Author: xuedong
  * Date: 2024/1/2
  */

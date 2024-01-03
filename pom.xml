@@ -17,6 +17,13 @@
     </properties>
     <dependencies>
 
+
+        <dependency>
+            <groupId>com.wedoctor.cloud.open.api</groupId>
+            <artifactId>1xqS469X9</artifactId>
+            <version>1.0.202308280001-TEST</version>
+        </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -65,6 +72,13 @@
             <version>4.0</version>
         </dependency>
 
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
 
 

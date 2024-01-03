@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Role;
  * Author: xuedong
  * Date: 2024/1/3
  */
-@Configuration(proxyBeanMethods = false)
+@Configuration
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 public class DistributedSchedulingConfiguration {
 

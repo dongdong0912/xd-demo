@@ -21,7 +21,6 @@ import org.springframework.core.MethodIntrospector;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -275,8 +274,7 @@ public class DistributedScheduledAnnotationBeanPostProcessor implements Schedule
         }
 
         Class<?> targetClass = AopProxyUtils.ultimateTargetClass(bean);
-        if (!this.nonAnnotatedClasses.contains(targetClass) &&
-                AnnotationUtils.isCandidateClass(targetClass, Collections.singletonList(DistributedScheduled.class))) {
+        if (!this.nonAnnotatedClasses.contains(targetClass)) {
             Map<Method, Set<DistributedScheduled>> annotatedMethods = MethodIntrospector.selectMethods(targetClass,
                     (MethodIntrospector.MetadataLookup<Set<DistributedScheduled>>) method -> {
                         Set<DistributedScheduled> scheduledMethods = AnnotatedElementUtils.getMergedRepeatableAnnotations(

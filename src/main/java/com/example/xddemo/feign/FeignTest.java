@@ -8,9 +8,13 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Author: xuedong
  * Date: 2024/1/3
  */
-@FeignClient(url = "http://apis.juhe.cn",name = "demo")
+@FeignClient(url = "http://apis.juhe.cn", name = "demo")
 public interface FeignTest {
 
     @GetMapping(value = "/simpleWeather/query")
-    String simpleWeather(@RequestParam("city") String city,@RequestParam("key") String key);
+    String simpleWeather(@RequestParam("city") String city, @RequestParam("key") String key);
+
+
+    @GetMapping(value = "/simpleWeather/query")
+    String simpleWeather(WeatherQueryBO bo);
 }

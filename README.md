@@ -41,6 +41,6 @@ spring.redis.client-type=jedis
 ## 使用过程
 
 1、拷贝com.example.xddemo.feign包下面的FeignInterceptor类到新项目中即可<br>
-2、参考com.example.xddemo.feign.Feigntest类，提供了使用的demo<br>
+2、参考com.example.xddemo.feign.FeignTest类，提供了使用的demo<br>
 
 

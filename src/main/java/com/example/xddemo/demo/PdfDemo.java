@@ -19,16 +19,16 @@ public class PdfDemo {
 
 
         // 指定 PDF 文件路径
-        String filePath = "/Users/xuedong/Desktop/硅基测试.pdf";
-        String outPath = "/Users/xuedong/Desktop/13.pdf";
+        String filePath = "/Users/xuedong/Desktop/11.pdf";
+        String outPath = "/Users/xuedong/Desktop/12.pdf";
 
-
-        byte[] bytes = addContent("清晨的阳光透过树叶的缝隙洒在大地上，一切都显得宁静而美好。小溪轻轻流淌，悠扬的鸟鸣在空中回荡。远处的山峦如画，静默地守望着大地。微风吹过，带着花香弥漫在空气中。人们沐浴在自然的怀抱中，感受着它无尽的宁静与祥和。生活也许有繁忙与焦虑，但此刻，让我们暂时远离喧嚣，沉浸在大自然的怀抱中，感受它带给我们的宁静与温暖。", 3, 100, 800, 1100, 1100, test().toByteArray());
-        test1(bytes);
-
-
+        manipulatePdf(filePath, outPath);
     }
 
+    private static void addText() {
+        byte[] bytes = addContent("清晨的阳光透过树叶的缝隙洒在大地上，一切都显得宁静而美好。小溪轻轻流淌，悠扬的鸟鸣在空中回荡。远处的山峦如画，静默地守望着大地。微风吹过，带着花香弥漫在空气中。人们沐浴在自然的怀抱中，感受着它无尽的宁静与祥和。生活也许有繁忙与焦虑，但此刻，让我们暂时远离喧嚣，沉浸在大自然的怀抱中，感受它带给我们的宁静与温暖。", 3, 100, 800, 1100, 1100, test().toByteArray());
+        test1(bytes);
+    }
 
     public static void test1(byte[] byteArray) {
 
@@ -82,6 +82,40 @@ public class PdfDemo {
 
     }
 
+
+    public static void manipulatePdf(String src, String dest) throws IOException, DocumentException {
+        PdfReader reader = new PdfReader(src);
+        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));
+        //添加一个遮挡处，可以把原内容遮住，后面在上面写入内容
+        PdfContentByte canvas = stamper.getOverContent(1);  //可以遮挡文字
+
+        float width = reader.getPageSize(1).getWidth();
+        float height = reader.getPageSize(1).getHeight();
+
+        System.out.println("Page " + 1 + " - Width: " + width + " | Height: " + height);
+
+        canvas.saveState();
+        //canvas.setColorFill(BaseColor.YELLOW);  //遮挡层颜色：黄色
+        canvas.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
+        canvas.rectangle(240, 805, 110, 20);
+        canvas.fill();
+        canvas.restoreState();
+
+
+
+
+        // 指定中文宋体字体路径
+        String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
+        // 使用BaseFont创建字体对象
+        BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        Phrase signaturePhrase = new Phrase("天津滨海新区北塘街欣嘉园蓝卡社区卫生服务中心", new Font(baseFont, 12, Font.BOLD, BaseColor.BLACK));
+        ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, signaturePhrase, 297.5f, 805, 0);
+
+        stamper.close();
+        reader.close();
+        System.out.println("complete");
+    }
+
     public static byte[] addContent(String text, int page, float llx, float lly, float urx, float ury, byte[] pdfFile) {
         PdfReader reader = null;
         PdfStamper stamper = null;
@@ -109,10 +143,8 @@ public class PdfDemo {
             // Paragraph datePhrase = new Paragraph("在这个宽广的网络世界中，信息如同潮水般汹涌而至。数不胜数的网页、博客和社交媒体上充斥着各种各样的内容，从新闻\n事件到娱乐八卦，从科技前沿到文学艺术。人们在虚拟的空间里交流思想，分享见解，形成了\n一个错综复杂、丰富多彩的信息社会。在这个纷繁复杂的世界里，我们不仅仅是信息的接收者，更是信息的创造者和传播者。在键盘的敲击声中，我们书写着自己的故事，共同构建着这个数字时代的篇章。", new Font(baseFont, 12));
 
 
-
             Phrase signaturePhrase = new Phrase("结论", new Font(baseFont, 12, Font.BOLD, BaseColor.BLACK));
-            ColumnText.showTextAligned(over, Element.ALIGN_LEFT, signaturePhrase, 60,180, 0);
-
+            ColumnText.showTextAligned(over, Element.ALIGN_LEFT, signaturePhrase, 60, 180, 0);
 
 
             Paragraph paragraph = new Paragraph();

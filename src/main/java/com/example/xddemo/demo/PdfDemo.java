@@ -111,7 +111,7 @@ public class PdfDemo {
         String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
         BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
         Paragraph paragraph = new Paragraph();
-        paragraph.add(new Chunk("天津滨海新区北塘街欣嘉园蓝卡社区卫生服务中心"));
+        paragraph.add(new Chunk("天津医院"));
         paragraph.setFont(new Font(baseFont, 16, Font.BOLD, BaseColor.BLACK));
         // 使用ColumnText将带有自动换行的文本添加到PDF中
         ColumnText columnText = new ColumnText(canvas);

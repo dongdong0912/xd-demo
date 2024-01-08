@@ -19,10 +19,10 @@ public class PdfDemo {
 
 
         // 指定 PDF 文件路径
-        String filePath = "/Users/xuedong/Desktop/11.pdf";
-        String outPath = "/Users/xuedong/Desktop/12.pdf";
+        String filePath = "/Users/xuedong/Desktop/22.pdf";
+        String outPath = "/Users/xuedong/Desktop/221.pdf";
 
-        manipulatePdf(filePath, outPath);
+        manipulatePdf1(filePath, outPath);
     }
 
     private static void addText() {
@@ -83,6 +83,38 @@ public class PdfDemo {
     }
 
 
+    public static void manipulatePdf1(String src, String dest) throws IOException, DocumentException {
+        PdfReader reader = new PdfReader(src);
+        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));
+        //添加一个遮挡处，可以把原内容遮住，后面在上面写入内容
+        PdfContentByte canvas = stamper.getOverContent(1);  //可以遮挡文字
+
+        float width = reader.getPageSize(1).getWidth();
+        float height = reader.getPageSize(1).getHeight();
+
+        System.out.println("Page " + 1 + " - Width: " + width + " | Height: " + height);
+
+        canvas.saveState();
+        //canvas.setColorFill(BaseColor.YELLOW);  //遮挡层颜色：黄色
+        canvas.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
+        canvas.rectangle(130, 780, 300, 50);
+        canvas.fill();
+        canvas.restoreState();
+
+
+        // 指定中文宋体字体路径
+        String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
+        // 使用BaseFont创建字体对象
+        BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        Phrase signaturePhrase = new Phrase("天津滨海新区北塘街欣嘉园蓝卡社区卫生服务中心", new Font(baseFont, 15, Font.BOLD, BaseColor.BLACK));
+        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, signaturePhrase, 130f, 800, 0);
+
+        stamper.close();
+        reader.close();
+        System.out.println("complete");
+    }
+
+
     public static void manipulatePdf(String src, String dest) throws IOException, DocumentException {
         PdfReader reader = new PdfReader(src);
         PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));
@@ -102,13 +134,11 @@ public class PdfDemo {
         canvas.restoreState();
 
 
-
-
         // 指定中文宋体字体路径
         String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
         // 使用BaseFont创建字体对象
         BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-        Phrase signaturePhrase = new Phrase("天津滨海新区北塘街欣嘉园蓝卡社区卫生服务中心", new Font(baseFont, 12, Font.BOLD, BaseColor.BLACK));
+        Phrase signaturePhrase = new Phrase("社区卫生服务中心", new Font(baseFont, 12, Font.BOLD, BaseColor.BLACK));
         ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, signaturePhrase, 297.5f, 805, 0);
 
         stamper.close();

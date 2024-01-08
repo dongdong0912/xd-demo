@@ -19,10 +19,10 @@ public class PdfDemo {
 
 
         // 指定 PDF 文件路径
-        String filePath = "/Users/xuedong/Desktop/22.pdf";
-        String outPath = "/Users/xuedong/Desktop/221.pdf";
+        String filePath = "/Users/xuedong/Desktop/33.pdf";
+        String outPath = "/Users/xuedong/Desktop/331.pdf";
 
-        manipulatePdf1(filePath, outPath);
+        manipulatePdf2(filePath, outPath);
     }
 
     private static void addText() {
@@ -82,8 +82,7 @@ public class PdfDemo {
 
     }
 
-
-    public static void manipulatePdf1(String src, String dest) throws IOException, DocumentException {
+    public static void manipulatePdf2(String src, String dest) throws IOException, DocumentException {
         PdfReader reader = new PdfReader(src);
         PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));
         //添加一个遮挡处，可以把原内容遮住，后面在上面写入内容
@@ -97,6 +96,49 @@ public class PdfDemo {
         canvas.saveState();
         //canvas.setColorFill(BaseColor.YELLOW);  //遮挡层颜色：黄色
         canvas.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
+        canvas.rectangle(170, 1090, 280, 50);
+        canvas.fill();
+        canvas.restoreState();
+
+
+//        // 指定中文宋体字体路径
+//        String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
+//        // 使用BaseFont创建字体对象
+//        BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+//        Phrase signaturePhrase = new Phrase("天津滨海新区北塘街欣嘉园蓝卡社区卫生服务中心", new Font(baseFont, 14, Font.BOLD, BaseColor.BLACK));
+//        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, signaturePhrase, 170f, 1115, 0);
+
+        String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
+        BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        Paragraph paragraph = new Paragraph();
+        paragraph.add(new Chunk("天津滨海新区北塘街欣嘉园蓝卡社区卫生服务中心"));
+        paragraph.setFont(new Font(baseFont, 16, Font.BOLD, BaseColor.BLACK));
+        // 使用ColumnText将带有自动换行的文本添加到PDF中
+        ColumnText columnText = new ColumnText(canvas);
+        columnText.setSimpleColumn(paragraph, 170, 1090, 450, 1130, 0, Element.ALIGN_LEFT);
+        columnText.addElement(paragraph);
+        columnText.go();
+
+        stamper.close();
+        reader.close();
+        System.out.println("complete");
+    }
+
+
+    public static void manipulatePdf1(String src, String dest) throws IOException, DocumentException {
+        PdfReader reader = new PdfReader(src);
+        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));
+        //添加一个遮挡处，可以把原内容遮住，后面在上面写入内容
+        PdfContentByte canvas = stamper.getOverContent(1);  //可以遮挡文字
+
+        float width = reader.getPageSize(1).getWidth();
+        float height = reader.getPageSize(1).getHeight();
+
+        System.out.println("Page " + 1 + " - Width: " + width + " | Height: " + height);
+
+        canvas.saveState();
+        canvas.setColorFill(BaseColor.YELLOW);  //遮挡层颜色：黄色
+        //canvas.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
         canvas.rectangle(130, 780, 300, 50);
         canvas.fill();
         canvas.restoreState();
@@ -179,16 +221,10 @@ public class PdfDemo {
 
             Paragraph paragraph = new Paragraph();
             paragraph.add(new Chunk(text + "12k3HPP"));
-            //ColumnText.showTextAligned(over, Element.ALIGN_LEFT, paragraph, 0 + 125, 10, 0);
-
-
             paragraph.setFont(new Font(baseFont, 10, Font.NORMAL, BaseColor.BLACK));
             // 使用ColumnText将带有自动换行的文本添加到PDF中
             ColumnText columnText = new ColumnText(over);
-
-
             columnText.setSimpleColumn(paragraph, 60, 100, 760, 170, 0, Element.ALIGN_LEFT);
-
             columnText.addElement(paragraph);
             columnText.go();
 

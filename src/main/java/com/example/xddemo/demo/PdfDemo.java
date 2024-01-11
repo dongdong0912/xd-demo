@@ -82,6 +82,15 @@ public class PdfDemo {
 
     }
 
+    /**
+     * 硅基的调整
+     *
+     * @param src
+     * @param dest
+     * @throws IOException
+     * @throws DocumentException
+     */
+
     public static void manipulatePdf2(String src, String dest) throws IOException, DocumentException {
         PdfReader reader = new PdfReader(src);
         PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));
@@ -124,7 +133,14 @@ public class PdfDemo {
         System.out.println("complete");
     }
 
-
+    /**
+     * 肝纤维的修改
+     *
+     * @param src
+     * @param dest
+     * @throws IOException
+     * @throws DocumentException
+     */
     public static void manipulatePdf1(String src, String dest) throws IOException, DocumentException {
         PdfReader reader = new PdfReader(src);
         PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));
@@ -156,7 +172,14 @@ public class PdfDemo {
         System.out.println("complete");
     }
 
-
+    /**
+     * 河南云心电
+     *
+     * @param src
+     * @param dest
+     * @throws IOException
+     * @throws DocumentException
+     */
     public static void manipulatePdf(String src, String dest) throws IOException, DocumentException {
         PdfReader reader = new PdfReader(src);
         PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));

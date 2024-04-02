@@ -22,7 +22,13 @@ public class PdfDemo {
         String filePath = "/Users/xuedong/Desktop/33.pdf";
         String outPath = "/Users/xuedong/Desktop/331.pdf";
 
-        manipulatePdf2(filePath, outPath);
+
+        String pdf = "/Users/xuedong/Desktop/981561541881880576.pdf";
+
+
+        test5();
+
+        // manipulatePdf2(filePath, outPath);
     }
 
     private static void addText() {
@@ -289,5 +295,49 @@ public class PdfDemo {
         //添加日期文字
         Phrase datePhrase = new Phrase(dateText, new Font(baseFont, 10, Font.NORMAL, BaseColor.BLACK));
         ColumnText.showTextAligned(over, Element.ALIGN_LEFT, datePhrase, x + 100, y, 0);
+    }
+
+
+    public static void test4(String src) throws Exception {
+        // Read the PDF file
+        PdfReader reader = new PdfReader(src);
+
+
+        int numberOfPages = reader.getNumberOfPages();
+
+        Rectangle pageSize = reader.getPageSize(1);
+    }
+
+
+    public static void test5() {
+        String existingPdfPath = "/Users/xuedong/Desktop/981561541881880576.pdf";
+        String newPdfPath = "/Users/xuedong/Desktop/222.pdf";
+
+        try {
+
+
+            // 创建 PdfReader 对象以读取现有的 PDF 文件
+            PdfReader reader = new PdfReader(existingPdfPath);
+            int numPages = reader.getNumberOfPages();
+
+            // 创建 PdfStamper 对象来修改现有 PDF 文件并添加新的 PDF 页面
+            PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(newPdfPath));
+
+            // 获取 PDF 的最后一页
+            PdfImportedPage page = stamper.getImportedPage(reader, numPages);
+
+            // 在原始 PDF 的末尾添加最后一页
+            stamper.insertPage(numPages + 1, reader.getPageSize(numPages));
+            PdfContentByte contentByte = stamper.getUnderContent(numPages + 1);
+            contentByte.addTemplate(page, 0, 0);
+
+            // 关闭资源
+            stamper.close();
+            reader.close();
+
+            System.out.println("最后一页已添加到原始 PDF 的末尾！");
+        } catch (IOException | DocumentException e) {
+            e.printStackTrace();
+        }
     }
 }

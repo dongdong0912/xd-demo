@@ -3,9 +3,12 @@ package com.example.xddemo.demo;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Author: xuedong
@@ -326,11 +329,39 @@ public class PdfDemo {
             // 获取 PDF 的最后一页
             PdfImportedPage page = stamper.getImportedPage(reader, numPages);
 
+            Rectangle pageSize = reader.getPageSize(numPages);
+            System.out.println(pageSize.getWidth());
+            System.out.println(pageSize.getHeight());
+
             // 在原始 PDF 的末尾添加最后一页
             stamper.insertPage(numPages + 1, reader.getPageSize(numPages));
             PdfContentByte contentByte = stamper.getUnderContent(numPages + 1);
             contentByte.addTemplate(page, 0, 0);
 
+
+            extracted(contentByte);
+            extracted1(contentByte);
+
+            // 指定中文宋体字体路径
+            String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
+            // 使用BaseFont创建字体对象
+            BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+            Phrase signaturePhrase = new Phrase("结论", new Font(baseFont, 12, Font.BOLD, BaseColor.BLACK));
+            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 100, 1050, 0);
+
+
+            String content="1患者在佩戴动态血糖监测的5天期间，血糖表现为餐后血糖升高，最高达12mmol/L，一般餐后高峰在8.5-11.3mmol/L，餐后高峰一般持续1-1.5小时，3小时后基本可降至空腹水平。建议可适当减少进餐量，或适当增加餐后运动量，餐后1小时去运动。2基本没有低血糖发生。 3建议目前降糖方案基础上，如进餐碳水化合物较多可加用糖苷酶抑制剂，如米格列醇。4全天血糖达标时间在理想范围内。";
+
+            //意见
+            Paragraph paragraph = new Paragraph();
+            paragraph.add(new Chunk(content));
+            paragraph.setFont(new Font(baseFont, 10, Font.NORMAL, BaseColor.BLACK));
+            ColumnText columnText = new ColumnText(contentByte);
+            columnText.setSimpleColumn(paragraph, 90, 600, 800, 1040, 0, Element.ALIGN_LEFT);
+            columnText.addElement(paragraph);
+            columnText.go();
+
+            insertReportSignBO(contentByte);
             // 关闭资源
             stamper.close();
             reader.close();
@@ -338,6 +369,65 @@ public class PdfDemo {
             System.out.println("最后一页已添加到原始 PDF 的末尾！");
         } catch (IOException | DocumentException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void extracted(PdfContentByte contentByte) {
+        contentByte.saveState();
+        contentByte.setColorFill(BaseColor.WHITE);  //遮挡层颜色：黄色
+        //contentByte.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
+        contentByte.rectangle(0, 0, 800, 1095);
+        contentByte.rectangle(900, 1100, 10, 10);
+        contentByte.fill();
+        contentByte.restoreState();
+    }
+
+    private static void extracted1(PdfContentByte contentByte) {
+        contentByte.saveState();
+        contentByte.setColorFill(BaseColor.WHITE);  //遮挡层颜色：黄色
+        //contentByte.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
+        contentByte.rectangle(720, 1120, 45, 20);
+        contentByte.fill();
+        contentByte.restoreState();
+    }
+
+    private static void insertReportSignBO(PdfContentByte over) {
+
+        try {
+            //日期格式
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            //获取页面大小
+            float pageWidth = PageSize.A4.getWidth();
+            //签名文字
+            String signatureText = "签名:";
+            if (org.apache.commons.lang3.StringUtils.isNotBlank("宋淑萍") && org.apache.commons.lang3.StringUtils.isBlank("http://10.60.10.19/local-kano/8Ya214499")) {
+                signatureText = signatureText + org.apache.commons.lang3.StringUtils.EMPTY + "宋淑萍";
+            }
+            //日期文字
+            String dateText = "日期:" + dateFormat.format(new Date());
+            // 计算文字绘制的位置
+            float x = 520;
+            float y = 900;
+            if (StringUtils.isNotBlank("http://10.60.10.19/local-kano/8Ya214499")) {
+                Image image = Image.getInstance(new URL("http://10.60.10.19/local-kano/8Ya214499"));
+                image.scaleAbsolute(60, 60);
+                image.setAbsolutePosition(550, 880);
+                over.addImage(image);
+            }
+            // 指定中文宋体字体路径
+            String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
+            // 使用BaseFont创建字体对象
+            BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+
+
+            //添加签名文字
+            Phrase signaturePhrase = new Phrase(signatureText, new Font(baseFont, 10, Font.NORMAL, BaseColor.BLACK));
+            ColumnText.showTextAligned(over, Element.ALIGN_LEFT, signaturePhrase, x, y, 0);
+            //添加日期文字
+            Phrase datePhrase = new Phrase(dateText, new Font(baseFont, 10, Font.NORMAL, BaseColor.BLACK));
+            ColumnText.showTextAligned(over, Element.ALIGN_LEFT, datePhrase, x + 100, y, 0);
+        } catch (Exception e) {
+            log.warn("福瑞股份插入签名日期报错", e);
         }
     }
 }

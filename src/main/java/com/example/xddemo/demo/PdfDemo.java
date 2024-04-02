@@ -369,6 +369,13 @@ public class PdfDemo {
             columnText.go();
 
             insertReportSignBO(contentByte);
+
+            Rectangle rectangle=new Rectangle(90, 600, 800, 1040);
+
+            rectangle.setBackgroundColor(new BaseColor(245, 251, 251, 128));
+
+
+            contentByte.rectangle(rectangle);
             // 关闭资源
             stamper.close();
             reader.close();
@@ -437,4 +444,10 @@ public class PdfDemo {
             log.warn("福瑞股份插入签名日期报错", e);
         }
     }
+
+
+
+
+
+
 }

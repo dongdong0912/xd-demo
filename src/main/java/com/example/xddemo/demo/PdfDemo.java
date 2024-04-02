@@ -362,9 +362,9 @@ public class PdfDemo {
             paragraph.add(Chunk.NEWLINE);
 
             paragraph.add(new Chunk("3" + content));
-            paragraph.setFont(new Font(baseFont, 10, Font.NORMAL, BaseColor.BLACK));
+            paragraph.setFont(new Font(baseFont, 10, Font.BOLD, BaseColor.BLACK));
             ColumnText columnText = new ColumnText(contentByte);
-            columnText.setSimpleColumn(paragraph, 90, 600, 800, 1040, 0, Element.ALIGN_LEFT);
+            columnText.setSimpleColumn(paragraph, 80, 600, 790, 1040, 0, Element.ALIGN_LEFT);
             columnText.addElement(paragraph);
             columnText.go();
 

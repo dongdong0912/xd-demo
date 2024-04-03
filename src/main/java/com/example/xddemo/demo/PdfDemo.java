@@ -347,21 +347,24 @@ public class PdfDemo {
             // 使用BaseFont创建字体对象
             BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
             Phrase signaturePhrase = new Phrase("结论", new Font(baseFont, 12, Font.BOLD, BaseColor.BLACK));
-            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 100, 1050, 0);
+            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 90, 1050, 0);
 
 
-            String content = "1患者在佩戴动态血糖监测的5天期间，血糖表现为餐后血糖升高，最高达12mmol/L，一般餐后高峰在8.5-11.3mmol/L，餐后高峰一般持续1-1.5小时，3小时后基本可降至空腹水平。建议可适当减少进餐量，或适当增加餐后运动量，餐后1小时去运动。2基本没有低血糖发生。 3建议目前降糖方案基础上，如进餐碳水化合物较多可加用糖苷酶抑制剂，如米格列醇。4全天血糖达标时间在理想范围内。";
+            String content1 = "1、患者在佩戴动态血糖监测的5天期间，血糖表现为餐后血糖升高，最高达12mmol/L，一般餐后高峰在8.5-11.3mmol/L，餐后高峰一般持续1-1.5小时，3小时后基本可降至空腹水平。建议可适当减少进餐量，或适当增加餐后运动量，餐后1小时去运动。";
 
+            String content2 = "2、基本没有低血糖发生。";
+
+            String content3 = "3、建议目前降糖方案基础上，如进餐碳水化合物较多可加用糖苷酶抑制剂，如米格列醇。4全天血糖达标时间在理想范围内。";
             //意见
             Paragraph paragraph = new Paragraph();
-            paragraph.add(new Chunk(content));
+            paragraph.add(new Chunk(content1));
             //添加换行
             paragraph.add(Chunk.NEWLINE);
-            paragraph.add(new Chunk("2" + content));
+            paragraph.add(new Chunk(content2));
             //添加换行
             paragraph.add(Chunk.NEWLINE);
 
-            paragraph.add(new Chunk("3" + content));
+            paragraph.add(new Chunk(content3));
             paragraph.setFont(new Font(baseFont, 10, Font.BOLD, BaseColor.BLACK));
             ColumnText columnText = new ColumnText(contentByte);
             columnText.setSimpleColumn(paragraph, 80, 600, 790, 1040, 0, Element.ALIGN_LEFT);
@@ -370,9 +373,9 @@ public class PdfDemo {
 
             insertReportSignBO(contentByte);
 
-            Rectangle rectangle=new Rectangle(90, 600, 800, 1040);
+            Rectangle rectangle = new Rectangle(80, 870, 800, 1040);
 
-            rectangle.setBackgroundColor(new BaseColor(245, 251, 251, 128));
+            rectangle.setBackgroundColor(new BaseColor(245, 251, 251, 70));
 
 
             contentByte.rectangle(rectangle);
@@ -444,10 +447,6 @@ public class PdfDemo {
             log.warn("福瑞股份插入签名日期报错", e);
         }
     }
-
-
-
-
 
 
 }

@@ -343,6 +343,16 @@ public class PdfDemo {
             contentByte.addTemplate(page, 0, 0);
 
 
+            for (int i = 0; i < numPages; i++) {
+
+                PdfContentByte pdfContentByte = stamper.getOverContent(i + 1);
+
+                extracted11(pdfContentByte);
+
+
+            }
+
+
             extracted(contentByte);
             //extracted1(contentByte);
 
@@ -409,6 +419,16 @@ public class PdfDemo {
         contentByte.rectangle(0, 0, 800, 1095);
         contentByte.rectangle(900, 1100, 10, 10);
         contentByte.rectangle(720, 1120, 45, 20);
+        contentByte.fill();
+        contentByte.restoreState();
+    }
+
+
+    private static void extracted11(PdfContentByte contentByte) {
+        contentByte.saveState();
+        contentByte.setColorFill(BaseColor.YELLOW);  //遮挡层颜色：黄色
+        //contentByte.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
+        contentByte.rectangle(720, 1120, 60, 30);
         contentByte.fill();
         contentByte.restoreState();
     }

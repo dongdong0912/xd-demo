@@ -1,5 +1,6 @@
 package com.example.xddemo.demo;
 
+import com.google.common.collect.Lists;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,8 @@ import java.io.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Author: xuedong
@@ -139,6 +142,7 @@ public class PdfDemo {
 
         stamper.close();
         reader.close();
+
         System.out.println("complete");
     }
 
@@ -340,32 +344,40 @@ public class PdfDemo {
 
 
             extracted(contentByte);
-            extracted1(contentByte);
+            //extracted1(contentByte);
 
             // 指定中文宋体字体路径
             String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
+
+            String pp="/Users/xuedong/xuedong_project/popular-fonts/微软雅黑.ttf";
             // 使用BaseFont创建字体对象
-            BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+            BaseFont baseFont = BaseFont.createFont(pp, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
             Phrase signaturePhrase = new Phrase("结论", new Font(baseFont, 12, Font.BOLD, BaseColor.BLACK));
             ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 90, 1050, 0);
 
 
             String content1 = "1、患者在佩戴动态血糖监测的5天期间，血糖表现为餐后血糖升高，最高达12mmol/L，一般餐后高峰在8.5-11.3mmol/L，餐后高峰一般持续1-1.5小时，3小时后基本可降至空腹水平。建议可适当减少进餐量，或适当增加餐后运动量，餐后1小时去运动。";
-
             String content2 = "2、基本没有低血糖发生。";
+            String content3 = "3、建议目前降糖方案基础上，如进餐碳水化合物较多可加用糖苷酶抑11制剂，如米格列醇。4全天血糖达标时间在理想范围内。";
+            String content4 = "4、建议目前降糖方案基础上，如进餐碳水化合物较多可加用糖苷酶抑制剂，如米格列醇。4全天血糖达标时间在理想范围内。";
+            String content5 = "5、建议目前降糖方案基础上，如进餐碳水化合物较多可加用糖苷酶抑制剂，如米格列醇。4全天血糖达标时间在理想范围122内。";
 
-            String content3 = "3、建议目前降糖方案基础上，如进餐碳水化合物较多可加用糖苷酶抑制剂，如米格列醇。4全天血糖达标时间在理想范围内。";
+            List<String> contentList = Lists.newArrayList(content1, content2, content3, content4, content5);
+
+
+
             //意见
             Paragraph paragraph = new Paragraph();
-            paragraph.add(new Chunk(content1));
-            //添加换行
-            paragraph.add(Chunk.NEWLINE);
-            paragraph.add(new Chunk(content2));
-            //添加换行
-            paragraph.add(Chunk.NEWLINE);
+            for (int i = 0; i < contentList.size(); i++) {
 
-            paragraph.add(new Chunk(content3));
-            paragraph.setFont(new Font(baseFont, 10, Font.BOLD, BaseColor.BLACK));
+                if (Objects.equals(0, i)) {
+                    paragraph.add(new Chunk(contentList.get(i)));
+                } else {
+                    paragraph.add(Chunk.NEWLINE);
+                    paragraph.add(new Chunk(contentList.get(i)));
+                }
+            }
+            paragraph.setFont(new Font(baseFont, 10, Font.NORMAL, BaseColor.BLACK));
             ColumnText columnText = new ColumnText(contentByte);
             columnText.setSimpleColumn(paragraph, 80, 600, 790, 1040, 0, Element.ALIGN_LEFT);
             columnText.addElement(paragraph);
@@ -375,7 +387,8 @@ public class PdfDemo {
 
             Rectangle rectangle = new Rectangle(80, 870, 800, 1040);
 
-            rectangle.setBackgroundColor(new BaseColor(245, 251, 251, 70));
+            // rectangle.setBackgroundColor(new BaseColor(245, 251, 251, 70));
+            rectangle.setBackgroundColor(new BaseColor(244, 250, 250, 50));
 
 
             contentByte.rectangle(rectangle);
@@ -391,10 +404,11 @@ public class PdfDemo {
 
     private static void extracted(PdfContentByte contentByte) {
         contentByte.saveState();
-        contentByte.setColorFill(BaseColor.WHITE);  //遮挡层颜色：黄色
-        //contentByte.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
+       // contentByte.setColorFill(BaseColor.YELLOW);  //遮挡层颜色：黄色
+        contentByte.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
         contentByte.rectangle(0, 0, 800, 1095);
         contentByte.rectangle(900, 1100, 10, 10);
+        contentByte.rectangle(720, 1120, 45, 20);
         contentByte.fill();
         contentByte.restoreState();
     }

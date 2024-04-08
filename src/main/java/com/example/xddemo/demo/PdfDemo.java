@@ -426,8 +426,8 @@ public class PdfDemo {
 
     private static void extracted11(PdfContentByte contentByte) {
         contentByte.saveState();
-        contentByte.setColorFill(BaseColor.YELLOW);  //遮挡层颜色：黄色
-        //contentByte.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
+        //contentByte.setColorFill(BaseColor.YELLOW);  //遮挡层颜色：黄色
+        contentByte.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
         contentByte.rectangle(720, 1120, 60, 30);
         contentByte.fill();
         contentByte.restoreState();

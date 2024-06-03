@@ -25,16 +25,15 @@ public class PdfDemo {
 
 
         // 指定 PDF 文件路径
-        String filePath = "/Users/xuedong/Desktop/肝纤维.pdf";
-        String outPath = "/Users/xuedong/Desktop/331.pdf";
+        String filePath = "/Users/xuedong/Desktop/zudi.pdf";
+        String outPath = "/Users/xuedong/Desktop/421.pdf";
 
 
-        String pdf = "/Users/xuedong/Desktop/981561541881880576.pdf";
-
-        String pdf1="/Users/xuedong/Desktop/931944399032721408.pdf";
 
 
-        manipulatePdf1(filePath, outPath);
+
+        manipulatePdf111(filePath,outPath);
+        //manipulatePdf1(filePath, outPath);
     }
 
     private static void addText() {
@@ -143,6 +142,46 @@ public class PdfDemo {
         stamper.close();
         reader.close();
 
+        System.out.println("complete");
+    }
+
+
+    /**
+     * 足底最终版本
+     *
+     * @param src
+     * @param dest
+     * @throws IOException
+     * @throws DocumentException
+     */
+    public static void manipulatePdf111(String src, String dest) throws IOException, DocumentException {
+        PdfReader reader = new PdfReader(src);
+        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));
+        //添加一个遮挡处，可以把原内容遮住，后面在上面写入内容
+        PdfContentByte canvas = stamper.getOverContent(1);  //可以遮挡文字
+
+        float width = reader.getPageSize(1).getWidth();
+        float height = reader.getPageSize(1).getHeight();
+
+        System.out.println("Page " + 1 + " - Width: " + width + " | Height: " + height);
+
+        canvas.saveState();
+        //canvas.setColorFill(BaseColor.YELLOW);  //遮挡层颜色：黄色
+        canvas.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
+        canvas.rectangle(0, 750, 595.92, 50);
+        canvas.fill();
+        canvas.restoreState();
+
+
+        // 指定中文宋体字体路径
+        String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
+        // 使用BaseFont创建字体对象
+        BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        Phrase signaturePhrase = new Phrase("天津滨海新区北塘街欣嘉园蓝卡社区卫生服务中心测试", new Font(baseFont, 18, Font.BOLD, BaseColor.BLACK));
+        ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, signaturePhrase, width/2, height/2+350, 0);
+
+        stamper.close();
+        reader.close();
         System.out.println("complete");
     }
 

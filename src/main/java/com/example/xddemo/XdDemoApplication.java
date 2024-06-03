@@ -1,44 +1,65 @@
 package com.example.xddemo;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.google.common.collect.Lists;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-
-import java.util.List;
 
 @SpringBootApplication
 @EnableFeignClients
 public class XdDemoApplication {
 
 
+    // 密码长度不少于8位且至少包含大写字母、小写字母、数字和特殊符号中的四种
+    //public static final String password1 = "^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$";
+    // 密码长度8-20位且至少包含大写字母、小写字母、数字或特殊符号中的任意三种
+    public static final String password = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_]+$)(?![a-z0-9]+$)(?![a-z\\W_]+$)(?![0-9\\W_]+$)[a-zA-Z0-9\\W_]{8,20}$";
+
     public static void main(String[] args) {
+        String password1 = "ABCDEFGHIG";  //全部大写
+        String password2 = "abcdefghig";  //全部小写
+        String password3 = "0123456789";  //全部数字
+        String password4 = "!@#$%^&*()";  //全部特殊字符
+        String password5 = "ABCDEabcde";  //大写和小写
+        String password6 = "ABCDE01234";  //大写和数字
+        String password7 = "ABCDE!@#$%";  //大写和特殊字符
+        String password8 = "abcde01234";  //小写和数字
+        String password9 = "abcde!@#$%";  //小写字母和特殊字符
+        String password10 = "01234!@#$%"; //数字和特殊字符
+        String password11 = "Aa4!";       //长度不够8位数
+        String password12 = "ABCDE01234!@#$%"; //符合要求密码任意三种
+        String password13 = "ABCDEabcde!@#$%"; //符合要求密码任意三种
+        String password14 = "ABCDEabcde01234"; //符合要求密码任意三种
+        String password15 = "abcde01234!@#$%"; //符合要求密码任意三种
+        String password16= "ABCabc012@#"; //符合要求密码任意三种 和 符合全部的四种
 
-        List<String> list = Lists.newArrayList("测试1", "测试2", "测试3");
 
-        System.out.println(JSON.toJSONString(list));
-
-
-        String a = "[\"测试1\",\"测试2\",\"测试3\"]";
+        String password = "yj123456";
+        System.out.println(checkConditions(password3));
 
 
-        String b = "1、患者在佩戴动态血糖监测的5天期间，血糖表现为餐后血糖升高，最高达12mmol/L，一般餐后高峰在8.5-11.3mmol/L，餐后高峰一般持续1-1.5小时，3小时后基本可降至空腹水平。建议可适当减少进餐量，或适当增加餐后运动量，餐后1小时去运动。2基本没有低血糖发生。 3建议目前降糖方案基础上，如进餐碳水化合物较多可加用糖苷酶抑制剂，如米格列醇。4全天血糖达标时间在理想范围内。";
+    }
 
-        List<String> strings1 = Lists.newArrayList();
-        try {
 
-            strings1 = JSONArray.parseArray(b, String.class);
-        } catch (Exception e) {
-            strings1.add(b);
+    public static boolean checkConditions(String str) {
+        if (str.length() < 8) {
+            return false;
+        }
+        int conditionsMet = 0;
+        // 条件1：字符串包含大写字母或者小写字母
+        if (str.matches(".*[a-z].*") || str.matches(".*[A-Z].*")) {
+            conditionsMet++;
+        }
+        // 条件2：字符串包含数字
+        if (str.matches(".*\\d.*")) {
+            conditionsMet++;
         }
 
+        // 条件3：字符串包含特殊字符
+        if (str.matches(".*[^a-zA-Z0-9].*")) {
+            conditionsMet++;
+        }
 
-        System.out.println(strings1.toString());
-
-        List<String> strings = JSONArray.parseArray(a, String.class);
-
-        System.out.println(strings.toString());
+        // 至少满足两个条件即为正确
+        return conditionsMet >= 2;
     }
 
 }

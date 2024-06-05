@@ -25,14 +25,14 @@ public class PdfDemo {
 
 
         // 指定 PDF 文件路径
-        String filePath = "/Users/xuedong/Desktop/NO.pdf";
-        String outPath = "/Users/xuedong/Desktop/105.pdf";
+        String filePath = "/Users/xuedong/Desktop/硅基1.pdf";
+        String outPath = "/Users/xuedong/Desktop/100.pdf";
 
 
 
 
 
-        manipulatePdf222(filePath,outPath);
+        manipulatePdf2(filePath,outPath);
         //manipulatePdf1(filePath, outPath);
     }
 
@@ -131,7 +131,7 @@ public class PdfDemo {
         String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
         BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
         Paragraph paragraph = new Paragraph();
-        paragraph.add(new Chunk("天津医院"));
+        paragraph.add(new Chunk("天津滨海新区北塘街欣嘉园蓝卡社区卫生服务中心测试测试测试测试"));
         paragraph.setFont(new Font(baseFont, 16, Font.BOLD, BaseColor.BLACK));
         // 使用ColumnText将带有自动换行的文本添加到PDF中
         ColumnText columnText = new ColumnText(canvas);
@@ -177,7 +177,7 @@ public class PdfDemo {
         String fontPath = "/Users/xuedong/Desktop/ZYSong18030.ttf"; // 替换成实际的字体文件路径
         // 使用BaseFont创建字体对象
         BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-        Phrase signaturePhrase = new Phrase("天津滨海新区北塘街欣嘉园蓝薛栋卡社区卫生服务中心测试", new Font(baseFont, 18, Font.BOLD, BaseColor.BLACK));
+        Phrase signaturePhrase = new Phrase("天津和平微医医院(天津互联网医院)", new Font(baseFont, 18, Font.BOLD, BaseColor.BLACK));
         ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, signaturePhrase, width/2, height/2+345, 0);
 
         stamper.close();

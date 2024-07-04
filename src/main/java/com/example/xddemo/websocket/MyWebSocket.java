@@ -6,6 +6,7 @@ import org.yeauty.annotation.*;
 import org.yeauty.pojo.Session;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.Map;
 
 /**
@@ -18,14 +19,19 @@ public class MyWebSocket {
     @BeforeHandshake
     public void handshake(Session session, HttpHeaders headers, @RequestParam String req, @PathVariable String arg, @PathVariable Map pathMap) {
         session.setSubprotocols("stomp");
-        if (!"ok".equals(req)) {
-            System.out.println("Authentication failed!");
-            session.close();
-        }
     }
 
     @OnOpen
     public void onOpen(Session session, HttpHeaders headers, @RequestParam String req, @PathVariable String arg, @PathVariable Map pathMap) {
+
+        InetSocketAddress socketAddress = (InetSocketAddress) session.localAddress();
+
+        // 获取 IP 地址
+        String hostname = socketAddress.getHostName();
+        String ipAddress = socketAddress.getAddress().getHostAddress();
+        int port = socketAddress.getPort();
+
+        InetSocketAddress socketAddress1 = (InetSocketAddress) session.remoteAddress();
         System.out.println("new connection");
         System.out.println(req);
     }

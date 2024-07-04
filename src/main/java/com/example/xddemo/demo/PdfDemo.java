@@ -25,14 +25,14 @@ public class PdfDemo {
 
 
         // 指定 PDF 文件路径
-        String filePath = "/Users/xuedong/Desktop/硅基1.pdf";
-        String outPath = "/Users/xuedong/Desktop/100.pdf";
+        String filePath = "/Users/xuedong/Desktop/NO.pdf";
+        String outPath = "/Users/xuedong/Desktop/10001.pdf";
 
 
 
 
 
-        manipulatePdf2(filePath,outPath);
+        manipulatePdf222(filePath,outPath);
         //manipulatePdf1(filePath, outPath);
     }
 
@@ -106,7 +106,7 @@ public class PdfDemo {
         PdfReader reader = new PdfReader(src);
         PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));
         //添加一个遮挡处，可以把原内容遮住，后面在上面写入内容
-        PdfContentByte canvas = stamper.getOverContent(1);  //可以遮挡文字
+        PdfContentByte canvas = stamper.getOverContent(6);  //可以遮挡文字
 
         float width = reader.getPageSize(1).getWidth();
         float height = reader.getPageSize(1).getHeight();
@@ -166,9 +166,9 @@ public class PdfDemo {
         System.out.println("Page " + 1 + " - Width: " + width + " | Height: " + height);
 
         canvas.saveState();
-        //canvas.setColorFill(BaseColor.YELLOW);  //遮挡层颜色：黄色
-        canvas.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
-        canvas.rectangle(0, 755, 595.92, 50);
+        canvas.setColorFill(BaseColor.YELLOW);  //遮挡层颜色：黄色
+        //canvas.setColorFill(BaseColor.WHITE);  //遮挡层颜色：白色
+        canvas.rectangle(0, 760, 595.92, 55);
         canvas.fill();
         canvas.restoreState();
 

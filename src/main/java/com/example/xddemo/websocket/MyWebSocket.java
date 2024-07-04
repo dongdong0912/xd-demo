@@ -1,4 +1,4 @@
-package com.example.xddemo.scheduled;
+package com.example.xddemo.websocket;
 
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.timeout.IdleStateEvent;

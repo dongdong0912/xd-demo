@@ -2,6 +2,7 @@ package com.example.xddemo.websocket;
 
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.timeout.IdleStateEvent;
+import org.ehcache.impl.internal.concurrent.ConcurrentHashMap;
 import org.yeauty.annotation.*;
 import org.yeauty.pojo.Session;
 
@@ -13,8 +14,11 @@ import java.util.Map;
  * Author: xuedong
  * Date: 2024/7/3
  */
-@ServerEndpoint(path = "/ws/{arg}",port = "8987",host = "127.0.0.1")
+@ServerEndpoint(path = "/ws", port = "8987", host = "127.0.0.1")
 public class MyWebSocket {
+
+
+    public static final Map<String, Session> USER_SESSION = new ConcurrentHashMap<>();
 
     @BeforeHandshake
     public void handshake(Session session, HttpHeaders headers, @RequestParam String req, @PathVariable String arg, @PathVariable Map pathMap) {
@@ -25,15 +29,15 @@ public class MyWebSocket {
     public void onOpen(Session session, HttpHeaders headers, @RequestParam String req, @PathVariable String arg, @PathVariable Map pathMap) {
 
         InetSocketAddress socketAddress = (InetSocketAddress) session.localAddress();
-
         // 获取 IP 地址
         String hostname = socketAddress.getHostName();
         String ipAddress = socketAddress.getAddress().getHostAddress();
         int port = socketAddress.getPort();
-
         InetSocketAddress socketAddress1 = (InetSocketAddress) session.remoteAddress();
         System.out.println("new connection");
         System.out.println(req);
+
+        USER_SESSION.put(req, session);
     }
 
     @OnClose

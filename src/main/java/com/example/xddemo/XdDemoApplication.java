@@ -9,8 +9,9 @@ import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 public class XdDemoApplication {
 
 
-
     public static void main(String[] args) {
+
+        Double d = -1.7;
 
 
         SpringApplication.run(XdDemoApplication.class, args);

@@ -1,20 +1,25 @@
 package com.example.xddemo;
 
+import com.example.xddemo.demo.AppProperties;
 import org.apache.rocketmq.spring.autoconfigure.RocketMQAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 
+import javax.annotation.Resource;
+
 @SpringBootApplication(scanBasePackages = "com.example.xddemo", exclude = {RedisAutoConfiguration.class, RocketMQAutoConfiguration.class})
 public class XdDemoApplication {
 
 
+    @Resource
+    private AppProperties  appProperties;
+
+
     public static void main(String[] args) {
 
-        Double d = -1.7;
-
-
         SpringApplication.run(XdDemoApplication.class, args);
+        System.out.println();
 
 
     }

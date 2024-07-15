@@ -63,7 +63,7 @@ public class APIClientV1Demo {
     }
 
 
-    public static Req param(){
+    public static Req param() {
         Req req = new Req();
         ReportBaseInfoBODTO reportBaseInfoBO = new ReportBaseInfoBODTO();
         reportBaseInfoBO.setProjectCode("XM000013");
@@ -73,6 +73,7 @@ public class APIClientV1Demo {
         reportBaseInfoBO.setReportingDoctorName("2");
         reportBaseInfoBO.setReportingDoctorCode("YH000006");
         reportBaseInfoBO.setReviewDate(new Date());
+        reportBaseInfoBO.setExtId("022866666");
 
         req.setReportBaseInfoBO(reportBaseInfoBO);
         PeopleIdentifierBODTO peopleIdentifierBO = new PeopleIdentifierBODTO();
@@ -101,10 +102,10 @@ public class APIClientV1Demo {
         attachmentBO.setFileName("123薛是多少大是多少栋.pdf");
         attachmentBO.setCode("bioLiverFunc");
 
-//        AttachmentDTO attachmentBO = new AttachmentDTO();
-//        attachmentBO.setCode("diabeticRetinopathy");
-//        attachmentBO.setValues(Lists.newArrayList("http://saas.kang.cn/saas/service/manage/drreport/downPdf?uuid=ff8080818a406a12018a542da842024a"));
-        healthIndicatorBO.setAttachment(Lists.newArrayList(attachmentBO));
+        AttachmentDTO attachmentBO1 = new AttachmentDTO();
+        attachmentBO1.setCode("diabeticRetinopathy");
+        attachmentBO1.setValues(Lists.newArrayList("http://kano.guahao-test.com/Gs244324915"));
+        healthIndicatorBO.setAttachment(Lists.newArrayList(attachmentBO1));
         healthIndicatorBO.setSource("cic");
         req.setHealthIndicatorBO(healthIndicatorBO);
         return req;

@@ -6,6 +6,7 @@ package com.example.xddemo.demo;/*
  * in accordance with the terms of the license agreement you entered into with GuaHao.com.
  */
 
+import cn.hutool.core.io.FileUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.parser.Feature;
@@ -50,7 +51,7 @@ public class APIClientV1Demo {
     }
 
     public static void main(String[] args) {
-        APIClientV1Demo clientV1Demo = new APIClientV1Demo("wy90D08YkG602a98", "e04J81KgrorE227Ac9FlkCt011reME6V", "https://openapi.guahao-test.com/router/rest");
+        APIClientV1Demo clientV1Demo = new APIClientV1Demo("wyX49oeiAM15431D", "aQF76nwpH94Py32Y643G36ru8ol18m1a", "https://openapi.guahao-test.com/router/rest");
         CicReportSaveReq cicReportSaveReq = new CicReportSaveReq();
         cicReportSaveReq.setReq(param());
         cicReportSaveReq.setApiMethod("guahao.cic.report.save");
@@ -92,9 +93,17 @@ public class APIClientV1Demo {
         healthIndicatorBO.setBloodSugar(7.8D);
         healthIndicatorBO.setMeasureTime("20211023T133245");
         healthIndicatorBO.setBloodPressureMeasureTimeLabel(0);
+
         AttachmentDTO attachmentBO = new AttachmentDTO();
-        attachmentBO.setCode("diabeticRetinopathy");
-        attachmentBO.setValues(Lists.newArrayList("http://saas.kang.cn/saas/service/manage/drreport/downPdf?uuid=ff8080818a406a12018a542da842024a"));
+        byte[] bytes = FileUtil.readBytes("/Users/xuedong/Desktop/kr_temp_report.pdf");
+        String encode = cn.hutool.core.codec.Base64.encode(bytes);
+        attachmentBO.setFileContent(encode);
+        attachmentBO.setFileName("123薛是多少大是多少栋.pdf");
+        attachmentBO.setCode("bioLiverFunc");
+
+//        AttachmentDTO attachmentBO = new AttachmentDTO();
+//        attachmentBO.setCode("diabeticRetinopathy");
+//        attachmentBO.setValues(Lists.newArrayList("http://saas.kang.cn/saas/service/manage/drreport/downPdf?uuid=ff8080818a406a12018a542da842024a"));
         healthIndicatorBO.setAttachment(Lists.newArrayList(attachmentBO));
         healthIndicatorBO.setSource("cic");
         req.setHealthIndicatorBO(healthIndicatorBO);

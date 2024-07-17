@@ -28,9 +28,6 @@ public class Base64Demo {
 
         //base64ToFile(null, "/Users/xuedong/Desktop/67809.pdf");
 
-
-
-
     }
 
 

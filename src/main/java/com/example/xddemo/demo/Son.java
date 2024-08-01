@@ -9,17 +9,17 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class Son extends Father {
+public  abstract class Son extends Father {
 
 
     private String userName;
 
 
     public void test() {
-        testFather2();
-        testFather();
         testFather3();
     }
+
+   public abstract void testAb();
 
 
 }

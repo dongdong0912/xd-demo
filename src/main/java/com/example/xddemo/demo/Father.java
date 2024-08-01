@@ -1,35 +1,48 @@
 package com.example.xddemo.demo;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * Date: 2024/4/30
  *
  * @author xuedong
  */
-@Setter
-@Getter
+@Data
 public class Father {
 
 
     private String name;
 
-    private Integer age;
+    public Integer age;
+
+    String address;
+
+    protected String phone;
 
 
-    void testFather() {
+    public static final String mobile = testInit();
+
+
+    private String test1 = "薛栋111";
+
+
+    public static String testInit() {
+        System.out.println("初始化");
+        return "薛栋";
+    }
+
+    void defaultFather() {
 
         System.out.println("默认");
     }
 
 
-    private void testFather1() {
+    private void testPrivateFather1() {
 
         System.out.println("private");
     }
 
-    protected void testFather2() {
+    protected void testProtectedFather2() {
 
         System.out.println("protected");
     }

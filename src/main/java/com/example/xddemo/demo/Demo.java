@@ -1,5 +1,7 @@
 package com.example.xddemo.demo;
 
+import cn.hutool.json.JSONUtil;
+
 /**
  * Author: xuedong
  * Date: 2024/7/16
@@ -9,24 +11,16 @@ public class Demo {
 
     public static void main(String[] args) {
 
-
-        /**
-         *
-         */
-        int a = 2;
-
-        a = print1(a);
-
-        System.out.println(a);
+        Father father=new Father();
 
 
-        a = print2(a);
+        System.out.println(Father.mobile);
 
-        System.out.println(a);
+        System.out.println(JSONUtil.toJsonStr(father));
 
-        a = print3(a);
+        System.out.println(father.toString());
 
-        System.out.println(a);
+        System.out.println("测试");
     }
 
     public static int print1(Integer a) {

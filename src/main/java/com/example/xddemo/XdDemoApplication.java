@@ -30,13 +30,17 @@ public class XdDemoApplication {
     }
 
     @PostConstruct
-    public void test(){
-        retryDemo.sendSmsRetry();
+    public void test() {
+        boolean b = retryDemo.sendSmsRetry(2);
+        if (b) {
+            System.out.println("测试完毕,正确");
+        }
+        if (!b) {
+            System.out.println("测试完毕,错误");
+        }
+
+
     }
-
-
-
-
 
 
 }

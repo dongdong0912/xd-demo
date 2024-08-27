@@ -25,26 +25,28 @@ public class RetryDemo {
             maxAttempts = 4,
             backoff = @Backoff(delay = 2000L, multiplier = 2)
     )
-    public boolean sendSmsRetry() {
+    public boolean sendSmsRetry(Integer num) {
         log.info("[RetryComponent][sendSmsRetry]>>>> 当前时间：{}", getNowTime());
 
         try {
-            SmsUtil.sendSms();
+            return SmsUtil.sendSms(num);
         } finally {
             System.out.println(111);
         }
-        return false;
     }
 
     /**
      * 兜底方法，规则：
-     *        1、超出了最大重试次数；
-     *        2、抛出了不进行重试的异常；
+     * 1、超出了最大重试次数；
+     * 2、抛出了不进行重试的异常；
      */
     @Recover
     public boolean recover() {
         log.info("[RetryComponent][recover]>>>> 短信发送次数过多，请稍后重试！");
         return false;
+        // 模拟发生空指针界异常
+        // throw new NullPointerException("空指针异常123");
+
     }
 
     /**
@@ -53,8 +55,6 @@ public class RetryDemo {
     private String getNowTime() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
-
-
 
 
 }

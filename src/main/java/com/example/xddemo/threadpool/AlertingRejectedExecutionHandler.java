@@ -2,7 +2,6 @@ package com.example.xddemo.threadpool;
 
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -16,8 +15,13 @@ public class AlertingRejectedExecutionHandler implements RejectedExecutionHandle
 
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+
+        long taskCount = executor.getTaskCount();
+        System.out.println("任务数量"+taskCount);
         //抛出异常，包含报警逻辑
-        throw new RejectedExecutionException("任务 " + r.toString() + " 被拒绝", new Throwable("报警: 线程池已满"));
+        String string = executor.toString();
+        System.out.println(string);
+
     }
 
 }

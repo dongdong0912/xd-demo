@@ -23,9 +23,9 @@ public class ThreadPoolConfig {
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         //设置线程池参数信息
-        taskExecutor.setCorePoolSize(10);
-        taskExecutor.setMaxPoolSize(20);
-        taskExecutor.setQueueCapacity(1000);
+        taskExecutor.setCorePoolSize(2);
+        taskExecutor.setMaxPoolSize(2);
+        taskExecutor.setQueueCapacity(2);
         taskExecutor.setKeepAliveSeconds(60);
         taskExecutor.setThreadNamePrefix("cic-executor-");
         taskExecutor.setWaitForTasksToCompleteOnShutdown(true);

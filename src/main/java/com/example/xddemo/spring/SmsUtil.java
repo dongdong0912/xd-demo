@@ -15,9 +15,6 @@ public class SmsUtil {
      * 发送短信
      */
     public static boolean sendSms(Integer num) {
-
-
-        log.info("[SmsUtil][sendSms]>>>> random num = {}", num);
         if (Objects.equals(num, 0)) {
             // 模拟发生参数异常
             throw new IllegalArgumentException("参数有误！");

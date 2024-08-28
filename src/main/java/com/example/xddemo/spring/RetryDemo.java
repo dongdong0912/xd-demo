@@ -21,17 +21,18 @@ public class RetryDemo {
     /**
      * 重试机制发送短信
      */
-    @Retryable(
+    @Retryable(recover = "recover",
             maxAttempts = 4,
             backoff = @Backoff(delay = 2000L, multiplier = 2)
     )
     public boolean sendSmsRetry(Integer num) {
         log.info("[RetryComponent][sendSmsRetry]>>>> 当前时间：{}", getNowTime());
+        String s = "{\"antibacterialLevel\":\"\",\"isWeiyiControl\":\"\",\"gradeCatalogName\":\"\",\"gradeCatalogType\":\"\",\"commonName\":\"\",\"commonPreparationId\":\"\",\"antibacterialId\":\"08ddf7e5c3f746fda096615ab6ea70f0\",\"pageIndex\":1,\"pageSize\":10}";
 
         try {
             return SmsUtil.sendSms(num);
         } finally {
-            System.out.println(111);
+
         }
     }
 
@@ -41,12 +42,12 @@ public class RetryDemo {
      * 2、抛出了不进行重试的异常；
      */
     @Recover
-    public boolean recover() {
-        log.info("[RetryComponent][recover]>>>> 短信发送次数过多，请稍后重试！");
-        return false;
-        // 模拟发生空指针界异常
-        // throw new NullPointerException("空指针异常123");
+    public boolean recover(Exception e, Integer num) {
 
+//        log.info("异常:{}", num, e);
+//        log.info("[RetryComponent][recover]>>>> 短信发送次数过多，请稍后重试！");
+        // 模拟发生空指针界异常
+        throw new RuntimeException(e.getMessage());
     }
 
     /**

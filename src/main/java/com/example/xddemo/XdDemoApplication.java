@@ -10,6 +10,7 @@ import org.springframework.retry.annotation.EnableRetry;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.concurrent.Executor;
 
 @SpringBootApplication(scanBasePackages = "com.example.xddemo", exclude = {RedisAutoConfiguration.class, RocketMQAutoConfiguration.class})
 // 扫描cn.hutool.extra.spring包下所有类并注册之
@@ -21,6 +22,8 @@ public class XdDemoApplication {
 
     @Resource
     private RetryDemo retryDemo;
+    @Resource(name = "taskExecutor")
+    private Executor threadPoolExecutor;
 
 
     public static void main(String[] args) {
@@ -31,15 +34,16 @@ public class XdDemoApplication {
 
     @PostConstruct
     public void test() {
-        boolean b = retryDemo.sendSmsRetry(2);
-        if (b) {
-            System.out.println("测试完毕,正确");
-        }
-        if (!b) {
-            System.out.println("测试完毕,错误");
-        }
-
-
+        threadPoolExecutor.execute(() -> {
+            boolean b = retryDemo.sendSmsRetry(1);
+            if (b) {
+                System.out.println("测试完毕,正确");
+            }
+            if (!b) {
+                System.out.println("测试完毕,错误");
+            }
+        });
+        System.out.println("调用完成");
     }
 
 

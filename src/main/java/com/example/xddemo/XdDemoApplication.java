@@ -34,19 +34,20 @@ public class XdDemoApplication {
 
     @PostConstruct
     public void test() {
-        for (int i = 0; i < 20; i++) {
-            threadPoolExecutor.execute(() -> {
-                boolean b = retryDemo.sendSmsRetry(2);
-                if (b) {
-                    System.out.println("测试完毕,正确");
-                }
-                if (!b) {
-                    System.out.println("测试完毕,错误");
-                }
-            });
-            System.out.println("调用完成");
-        }
 
+        int num = 2;
+        threadPoolExecutor.execute(() -> sendSms(num));
+        System.out.println("调用完成");
+    }
+
+    private void sendSms(Integer num) {
+        boolean b = retryDemo.sendSmsRetry(num);
+        if (b) {
+            System.out.println("测试完毕,正确");
+        }
+        if (!b) {
+            System.out.println("测试完毕,错误");
+        }
     }
 
 

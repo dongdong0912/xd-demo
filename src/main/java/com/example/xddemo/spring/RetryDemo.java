@@ -21,7 +21,7 @@ public class RetryDemo {
     /**
      * 重试机制发送短信
      */
-    @Retryable(recover = "recover",
+    @Retryable(recover = "recover",label="test-Retryable",
             maxAttempts = 4,
             backoff = @Backoff(delay = 2000L, multiplier = 2)
     )

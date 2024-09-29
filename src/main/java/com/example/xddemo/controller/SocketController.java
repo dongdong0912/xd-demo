@@ -3,10 +3,12 @@ package com.example.xddemo.controller;
 import com.example.xddemo.websocket.MyWebSocket;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import org.yeauty.pojo.Session;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Author: xuedong
@@ -31,4 +33,13 @@ public class SocketController {
         return text;
 
     }
+
+
+    @RequestMapping("/doTest")
+    @ResponseStatus(HttpStatus.FOUND)
+    public void redirect(HttpServletResponse response, HttpServletRequest request) {
+        response.setHeader("location", "https://www.baidu.com");
+    }
+
+
 }

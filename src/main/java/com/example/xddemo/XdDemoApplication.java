@@ -1,5 +1,7 @@
 package com.example.xddemo;
 
+import com.example.xddemo.demo.V2;
+import com.example.xddemo.demo.V3;
 import com.example.xddemo.spring.RetryDemo;
 import org.apache.rocketmq.spring.autoconfigure.RocketMQAutoConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -24,6 +26,10 @@ public class XdDemoApplication {
     private RetryDemo retryDemo;
     @Resource(name = "taskExecutor")
     private Executor threadPoolExecutor;
+    @Resource
+    private V2 v2;
+    @Resource
+    private V3 v3;
 
 
     public static void main(String[] args) {
@@ -32,10 +38,23 @@ public class XdDemoApplication {
 
     }
 
+
     @PostConstruct
+    public void init() {
+
+        v2.put("1", "2");
+        v2.print();
+        v3.put("11", "22");
+        v3.print();
+
+
+    }
+
+
+    //@PostConstruct
     public void test() {
 
-        int num = 2;
+        int num = 1;
         threadPoolExecutor.execute(() -> sendSms(num));
         System.out.println("调用完成");
     }

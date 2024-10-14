@@ -4,11 +4,13 @@ import com.google.common.collect.Lists;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
  * Author: xuedong
  * Date: 2023/12/19
+ * @author xuedong
  */
 public class HexDemo {
 
@@ -19,12 +21,12 @@ public class HexDemo {
         byte[] buff = new byte[20];
 
 
-        String hexString = "7B012001101266000544005C11000B0504037D"; // 例如，"Hello World" 的十六进制表示
+        String hexString = "7B012001101266000544005C11000B0504037D";
 
         // 使用 DatatypeConverter 解析十六进制字符串为字节数组
         byte[] byteArray = DatatypeConverter.parseHexBinary(hexString);
 
-        String a=new String(byteArray,"utf-8");
+        String a=new String(byteArray, StandardCharsets.UTF_8);
         byte  aa= (byte) 0xFF;
         byte aaa=0x1;
         System.out.println(a);

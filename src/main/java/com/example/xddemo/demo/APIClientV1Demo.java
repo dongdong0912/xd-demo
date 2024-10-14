@@ -6,7 +6,6 @@ package com.example.xddemo.demo;/*
  * in accordance with the terms of the license agreement you entered into with GuaHao.com.
  */
 
-import cn.hutool.core.io.FileUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.parser.Feature;
@@ -96,9 +95,9 @@ public class APIClientV1Demo {
         healthIndicatorBO.setBloodPressureMeasureTimeLabel(0);
 
         AttachmentDTO attachmentBO = new AttachmentDTO();
-        byte[] bytes = FileUtil.readBytes("/Users/xuedong/Desktop/kr_temp_report.pdf");
-        String encode = cn.hutool.core.codec.Base64.encode(bytes);
-        attachmentBO.setFileContent(encode);
+        // byte[] bytes = FileUtil.readBytes("/Users/xuedong/Desktop/kr_temp_report.pdf");
+        // String encode = cn.hutool.core.codec.Base64.encode(bytes);
+        // attachmentBO.setFileContent(encode);
         attachmentBO.setFileName("123薛是多少大是多少栋.pdf");
         attachmentBO.setCode("bioLiverFunc");
 

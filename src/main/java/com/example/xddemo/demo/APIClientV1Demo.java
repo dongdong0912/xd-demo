@@ -9,6 +9,7 @@ package com.example.xddemo.demo;/*
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.parser.Feature;
+import com.example.xddemo.demo.pdf.ShSignUtils;
 import com.google.common.collect.Lists;
 import com.wedoctor.cloud.open.api.bean.ApiRequestHeaderDTO;
 import com.wedoctor.cloud.open.api.bean.cicReportSave.req.*;
@@ -17,7 +18,6 @@ import com.wedoctor.cloud.open.api.constant.Constant;
 import com.wedoctor.cloud.open.api.util.BeanUtil;
 import com.wedoctor.cloud.open.api.util.HttpClientUtil;
 import com.wedoctor.cloud.open.api.util.RequestUtil;
-import com.wedoctor.cloud.open.api.util.SignUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.impl.client.CloseableHttpClient;
 
@@ -50,12 +50,12 @@ public class APIClientV1Demo {
     }
 
     public static void main(String[] args) {
-        APIClientV1Demo clientV1Demo = new APIClientV1Demo("wyX49oeiAM15431D", "aQF76nwpH94Py32Y643G36ru8ol18m1a", "https://openapi.guahao-test.com/router/rest");
+        APIClientV1Demo clientV1Demo = new APIClientV1Demo("31560248", "66D11B7DFE4BF3BCD888DEC84E9CC666", "http://172.16.0.128/router/rest");
         CicReportSaveReq cicReportSaveReq = new CicReportSaveReq();
         cicReportSaveReq.setReq(param());
-        cicReportSaveReq.setApiMethod("guahao.cic.report.save");
-        cicReportSaveReq.setApiReqUrl("https://openapi.guahao-test.com/router/rest");
-        cicReportSaveReq.setApiProductCode("1xqS469X9");
+//        cicReportSaveReq.setApiMethod("guahao.cic.report.save");
+//        cicReportSaveReq.setApiReqUrl("http://172.16.0.128/router/rest");
+//        cicReportSaveReq.setApiProductCode("1xqS469X9");
         CicReportSaveRes res = clientV1Demo.execute(cicReportSaveReq, new TypeReference<CicReportSaveRes>() {
         });
         System.out.println(JSON.toJSONString(res));
@@ -135,7 +135,7 @@ public class APIClientV1Demo {
 
     private static String postForm(String url, Map<String, String> headerMap, Map<String, String> parameters, String appSecret, CloseableHttpClient httpClient) throws Exception {
         try {
-            String clientSign = SignUtil.getSign(headerMap, RequestUtil.parseInUrlParameters(url, parameters), appSecret);
+            String clientSign = ShSignUtils.getSign(headerMap, RequestUtil.parseInUrlParameters(url, parameters), appSecret);
             headerMap.put(SIGN, clientSign);
             return HttpClientUtil.doPost(url, headerMap, parameters, httpClient);
         } catch (Exception e) {
@@ -259,4 +259,6 @@ public class APIClientV1Demo {
     public void setMethod(String method) {
         this.method = method;
     }
+
+
 }

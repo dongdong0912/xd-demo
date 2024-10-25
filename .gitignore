@@ -34,3 +34,6 @@ build/
 !/arthas-output/
 !/.idea/
 !/target/
+/arthas-output/
+/.idea/
+/target/

@@ -52,4 +52,10 @@ public class Father {
 
         System.out.println("protected");
     }
+
+
+    public static void main(String[] args) {
+        Father father = new Father();
+        father.testFather3();
+    }
 }

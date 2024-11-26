@@ -3,7 +3,9 @@ package com.example.xddemo.bo;
 import cn.hutool.core.util.IdcardUtil;
 import com.google.common.collect.Sets;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +26,35 @@ public class PersonBO {
 
 
     public static void main(String[] args) {
+
+
+        String aaa="";
+
+        String aaa1 = "aaa薛栋111222"+ aaa;
+
+        System.out.println(aaa1);
+
+
+        Duration duration = Duration.ofSeconds(3L);
+
+        long millis = duration.toMillis();
+        System.out.println(millis);
+
+
+        Object s111="123df薛栋";
+
+        String string = s111.toString();
+        System.out.println(string);
+
+        System.out.println((String)s111);
+
+
+        String s="薛栋111";
+        String s11="学费手动阀12kk";
+
+        List<byte[]>  list = Arrays.asList(s.getBytes(),s11.getBytes());
+
+
 
 
         PersonBO  personBO=new PersonBO();

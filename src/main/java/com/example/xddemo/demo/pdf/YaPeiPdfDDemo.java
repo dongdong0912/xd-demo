@@ -56,6 +56,10 @@ public class YaPeiPdfDDemo {
             Phrase signaturePhrase = new Phrase("专家阅片结论:", PdfFontUtils.boldBlack10);
             ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 58, 755, 0);
 
+
+            Phrase  pagination= new Phrase(String.valueOf(numPages+1), PdfFontUtils.boldBlack10);
+            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, pagination, 570, 20, 0);
+
             //结论
             Paragraph paragraph = new Paragraph();
             List<String> contentList = Lists.newArrayList();
@@ -73,7 +77,6 @@ public class YaPeiPdfDDemo {
             paragraph.setFont(PdfFontUtils.normalBlack8);
 
             ColumnText columnText = new ColumnText(contentByte);
-            //columnText.setSimpleColumn(paragraph, 80, 600, 790, 1040, 0, Element.ALIGN_LEFT);
             columnText.setSimpleColumn(paragraph, 30, 300, 570, 750, 0, Element.ALIGN_LEFT);
             columnText.addElement(paragraph);
             columnText.go();
@@ -128,6 +131,8 @@ public class YaPeiPdfDDemo {
             //添加日期文字
             Phrase datePhrase = new Phrase(dateText, PdfFontUtils.boldBlack10);
             ColumnText.showTextAligned(over, Element.ALIGN_LEFT, datePhrase, x + 100, y, 0);
+
+
         } catch (Exception e) {
 
         }

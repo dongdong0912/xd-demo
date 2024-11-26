@@ -1,5 +1,6 @@
 package com.example.xddemo.demo;
 
+import com.example.xddemo.bo.PersonBO;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
@@ -29,6 +30,12 @@ public class Demo {
 
 
     public static void main(String[] args) throws Throwable {
+
+
+        Father  father=new Father();
+
+
+        PersonBO  personBO=new PersonBO();
 
 
         // 定义两个列表

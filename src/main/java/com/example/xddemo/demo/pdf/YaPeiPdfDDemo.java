@@ -4,10 +4,14 @@ import com.google.common.collect.Lists;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.OutputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -74,6 +78,11 @@ public class YaPeiPdfDDemo {
             columnText.addElement(paragraph);
             columnText.go();
 
+            PdfUpdateConclusionBO pdfUpdateConclusionBO = new PdfUpdateConclusionBO();
+
+            pdfUpdateConclusionBO.setSignUrl("http://kano.guahao-test.com/DqU44309462");
+            insertReportSignBO(contentByte, pdfUpdateConclusionBO);
+
 
             // 关闭资源
             stamper.close();
@@ -90,5 +99,37 @@ public class YaPeiPdfDDemo {
         contentByte.rectangle(0, 0, 600, 768);
         contentByte.fill();
         contentByte.restoreState();
+    }
+
+    private static void insertReportSignBO(PdfContentByte over, PdfUpdateConclusionBO bo) {
+        try {
+            //日期格式
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            //签名文字
+            String signatureText = "签名:";
+            if (StringUtils.isNotBlank(bo.getDoctorName())) {
+                signatureText = signatureText + StringUtils.EMPTY + bo.getDoctorName();
+            }
+            //日期文字
+            String dateText = "日期:" + dateFormat.format(new Date());
+            // 计算文字绘制的位置
+            float x = 350;
+            float y = 300;
+            if (StringUtils.isNotBlank(bo.getSignUrl())) {
+                Image image = Image.getInstance(new URL(bo.getSignUrl()));
+                image.scaleAbsolute(60, 60);
+                //image.setAbsolutePosition(550, 880);
+                image.setAbsolutePosition(380, 280);
+                over.addImage(image);
+            }
+            //添加签名文字
+            Phrase signaturePhrase = new Phrase(signatureText, PdfFontUtils.boldBlack10);
+            ColumnText.showTextAligned(over, Element.ALIGN_LEFT, signaturePhrase, x, y, 0);
+            //添加日期文字
+            Phrase datePhrase = new Phrase(dateText, PdfFontUtils.boldBlack10);
+            ColumnText.showTextAligned(over, Element.ALIGN_LEFT, datePhrase, x + 100, y, 0);
+        } catch (Exception e) {
+
+        }
     }
 }

@@ -50,7 +50,7 @@ public class APIClientV1Demo {
     }
 
     public static void main(String[] args) {
-        APIClientV1Demo clientV1Demo = new APIClientV1Demo("31560248", "66D11B7DFE4BF3BCD888DEC84E9CC666", "http://172.16.0.128/router/rest");
+        APIClientV1Demo clientV1Demo = new APIClientV1Demo("31560248", "66D11B7DFE4BF3BCD888DEC84E9CC666", "https://openapi.shwyyy.com/router/rest");
         CicReportSaveReq cicReportSaveReq = new CicReportSaveReq();
         cicReportSaveReq.setReq(param());
 //        cicReportSaveReq.setApiMethod("guahao.cic.report.save");
@@ -65,12 +65,12 @@ public class APIClientV1Demo {
     public static Req param() {
         Req req = new Req();
         ReportBaseInfoBODTO reportBaseInfoBO = new ReportBaseInfoBODTO();
-        reportBaseInfoBO.setProjectCode("XM000013");
+        reportBaseInfoBO.setProjectCode("XM000008");
         reportBaseInfoBO.setConclusion("0907薛栋测试");
         reportBaseInfoBO.setPrescriptionDoctorName("1");
-        reportBaseInfoBO.setPrescriptionDoctorCode("YH000005");
+        reportBaseInfoBO.setPrescriptionDoctorCode("YH000003");
         reportBaseInfoBO.setReportingDoctorName("2");
-        reportBaseInfoBO.setReportingDoctorCode("YH000006");
+        reportBaseInfoBO.setReportingDoctorCode("YH000009");
         reportBaseInfoBO.setReviewDate(new Date());
         reportBaseInfoBO.setExtId("022866666");
 

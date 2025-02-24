@@ -1,9 +1,11 @@
 package com.example.xddemo.demo;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.example.xddemo.bo.UserImportBO;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -17,6 +19,15 @@ public class ExcelDemo {
 
     public static void main(String[] args) {
 
+
+
+
+
+    }
+
+
+
+    private static void test1() {
         String json="";
         List<UserImportBO> userImportBOS = JSONArray.parseArray(json, UserImportBO.class);
         // 指定本地文件路径

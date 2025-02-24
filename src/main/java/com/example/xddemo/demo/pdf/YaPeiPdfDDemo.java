@@ -3,7 +3,6 @@ package com.example.xddemo.demo.pdf;
 import com.google.common.collect.Lists;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.OutputStream;
@@ -26,8 +25,8 @@ public class YaPeiPdfDDemo {
 
 
         // 指定 PDF 文件路径
-        String filePath = "/Users/xuedong/Desktop/雅培测试.pdf";
-        String outPath = "/Users/xuedong/Desktop/11261.pdf";
+        String filePath = "/Users/xuedong/Desktop/雅培线上.pdf";
+        String outPath = "/Users/xuedong/Desktop/202412171.pdf";
 
         PdfReader reader = new PdfReader(filePath);
 
@@ -54,20 +53,20 @@ public class YaPeiPdfDDemo {
             // 填充颜色
             fillColor(contentByte);
             Phrase signaturePhrase = new Phrase("专家阅片结论:", PdfFontUtils.boldBlack10);
-            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 58, 755, 0);
+            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 67, 740, 0);
 
 
-            Phrase  pagination= new Phrase(String.valueOf(numPages+1), PdfFontUtils.boldBlack10);
+            Phrase pagination = new Phrase(String.valueOf(numPages + 1), PdfFontUtils.boldBlack10);
             ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, pagination, 570, 20, 0);
 
             //结论
             Paragraph paragraph = new Paragraph();
             List<String> contentList = Lists.newArrayList();
-            contentList.add("生活是一幅绚丽多彩的画卷，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目的地。生活中有欢笑，也有泪水；有成功的喜悦，也有失败的落寞。但正是这些酸甜苦辣，构成了生活的丰富内涵。我们在挫折中学会坚强，在困境中寻找希望。用心去感受生活的每一个瞬间，珍惜身边的人和事，让生活绽放出最美丽的色彩。");
-            contentList.add("生活是一幅绚丽多彩的画卷，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目鸟儿在枝头欢唱，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目的地。生活中有欢笑，也有泪水；有成功的喜悦，也有失败的落寞。但正是这些酸甜苦辣，构成了生活的丰富内涵。我们在挫折中学会坚强，在困境中寻找希望。用心去感受生活的每一个瞬间，珍惜身边的人和事，让生活绽放出最美丽的色彩。");
-            contentList.add("生活是一幅绚丽多彩的画卷，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目鸟儿在枝头欢唱，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目的地。生活中有欢笑，也有泪水；有成功的喜悦，也有失败的落寞。但正是这些酸甜苦辣，构成了生活的丰富内涵。我们在挫折中学会坚强，在困境中寻找希望。用心去感受生活的每一个瞬间，珍惜身边的人和事，让生活绽放出最美丽的色彩。");
-            contentList.add("生活是一幅绚丽多彩的画卷，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目的地。生活中有欢笑，也有泪水；有成功的喜悦，也有失败的落寞。但正是这些酸甜苦辣，构成了生活的丰富内涵。我们在挫折中学会坚强，在困境中寻找希望。用心去感受生活的每一个瞬间，珍惜身边的人和事，让生活绽放出最美丽的色彩。");
-            contentList.add("生活是一幅绚丽多彩的画卷，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目的地。生活中有欢笑，也有泪水；有成功的喜悦，也有失败的落寞。但正是这些酸甜苦辣，构成了生活的丰富内涵。我们在挫折中学会坚强，在困境中寻找希望。用心去感受生活的每一个瞬间，珍惜身边的人和事，让生活绽放出最美丽的色彩。");
+            contentList.add("测11生活是一幅绚丽多彩的画卷，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目的地。生活中有欢笑，也有泪水；有成功的喜悦，也有失败的落寞。但正是这些酸甜苦辣，构成了生活的丰富内涵。我们在挫折中学会坚强，在困境中寻找希望。用心去感受生活的每一个瞬间，珍惜身边的人和事，让生活绽放出最美丽的色彩。");
+            contentList.add("2生活是一幅绚丽多彩的画卷，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目鸟儿在枝头欢唱，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目的地。生活中有欢笑，也有泪水；有成功的喜悦，也有失败的落寞。但正是这些酸甜苦辣，构成了生活的丰富内涵。我们在挫折中学会坚强，在困境中寻找希望。用心去感受生活的每一个瞬间，珍惜身边的人和事，让生活绽放出最美丽的色彩。");
+            contentList.add("3生活是一幅绚丽多彩的画卷，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目鸟儿在枝头欢唱，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目的地。生活中有欢笑，也有泪水；有成功的喜悦，也有失败的落寞。但正是这些酸甜苦辣，构成了生活的丰富内涵。我们在挫折中学会坚强，在困境中寻找希望。用心去感受生活的每一个瞬间，珍惜身边的人和事，让生活绽放出最美丽的色彩。");
+            contentList.add("4生活是一幅绚丽多彩的画卷，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目的地。生活中有欢笑，也有泪水；有成功的喜悦，也有失败的落寞。但正是这些酸甜苦辣，构成了生活的丰富内涵。我们在挫折中学会坚强，在困境中寻找希望。用心去感受生活的每一个瞬间，珍惜身边的人和事，让生活绽放出最美丽的色彩。");
+            contentList.add("5生活是一幅绚丽多彩的画卷，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，充满了无尽的可能。清晨的第一缕阳光，温暖而明亮，唤醒了沉睡的世界。鸟儿在枝头欢唱，实施十大 但是佛但是佛是但是地方阿水 发是的佛阿水佛阿水佛是的佛是地方 的佛但是佛是佛啊 仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目仿佛在为新的一天奏响乐章。街道上，行人匆匆，各自奔赴着不同的目的地。生活中有欢笑，也有泪水；有成功的喜悦，也有失败的落寞。但正是这些酸甜苦辣，构成了生活的丰富内涵。我们在挫折中学会坚强，在困境中寻找希望。用心去感受生活的每一个瞬间，珍惜身边的人和事，让生活绽放出最美丽的色彩。");
             for (int i = 0; i < contentList.size(); i++) {
                 if (!Objects.equals(0, i)) {
                     paragraph.add(Chunk.NEWLINE);
@@ -77,7 +76,7 @@ public class YaPeiPdfDDemo {
             paragraph.setFont(PdfFontUtils.normalBlack8);
 
             ColumnText columnText = new ColumnText(contentByte);
-            columnText.setSimpleColumn(paragraph, 30, 300, 570, 750, 0, Element.ALIGN_LEFT);
+            columnText.setSimpleColumn(paragraph, 40, 300, 570, 735, 0, Element.ALIGN_LEFT);
             columnText.addElement(paragraph);
             columnText.go();
 
@@ -99,7 +98,8 @@ public class YaPeiPdfDDemo {
     private static void fillColor(PdfContentByte contentByte) {
         contentByte.saveState();
         contentByte.setColorFill(BaseColor.WHITE);
-        contentByte.rectangle(0, 0, 600, 768);
+        //contentByte.rectangle(0, 0, 600, 768);
+        contentByte.rectangle(0, 0, 600, 752);
         contentByte.fill();
         contentByte.restoreState();
     }

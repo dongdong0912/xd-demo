@@ -1,6 +1,8 @@
 package com.example.xddemo.demo;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.file.FileWriter;
+import com.google.common.collect.Lists;
 import org.checkerframework.checker.units.qual.K;
 
 import java.io.File;
@@ -15,10 +17,14 @@ public class InsertCreateDemo {
 
     public static final String COMMA = ",";
 
+    public static final String INSERT = "INSERT INTO `std_supply` ( `id`, `name`, `hospital_id`, `hospital_name`, `is_online`, `is_major`, `gmt_created`, `gmt_modified` ) VALUES";
+
 
     public static void main(String[] args) throws Throwable {
 
 
+
+        System.out.println(INSERT);
         // 指定要读取的文件路径
         String filePath = "/Users/xuedong/Desktop/export_result.txt";
 
@@ -33,7 +39,18 @@ public class InsertCreateDemo {
             String hospital_name = generate(split[3]);
             String is_online = split[4];
 
-            String r = "(" + id + COMMA + name + COMMA + hospital_id + COMMA + hospital_name + COMMA + is_online + COMMA + "0" + "," + "now()" + "," + "now()" + ")" + COMMA;
+            List<String> list = Lists.newArrayList();
+            list.add(id);
+            list.add(name);
+            list.add(hospital_id);
+            list.add(hospital_name);
+            list.add(is_online);
+            list.add("0");
+            list.add("now()");
+            list.add("now()");
+
+            String join = String.join(",", list);
+            String r = "(" + join + ")" + COMMA;
             System.out.println(r);
         }
 

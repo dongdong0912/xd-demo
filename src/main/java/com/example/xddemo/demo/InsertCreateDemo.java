@@ -21,7 +21,73 @@ public class InsertCreateDemo {
     public static void main(String[] args) throws Throwable {
 
 
+        shandong_yongfa();
 
+    }
+
+
+    /**
+     * 山东-给药途径
+     */
+    private static void shandong_yongfa() {
+        String filePath = "/Users/xuedong/Desktop/shandong_yongfa.txt";
+        // 使用FileUtil按行读取文件
+        List<String> lines = FileUtil.readLines(new File(filePath), "UTF-8");
+        for (String line : lines) {
+            String[] split = line.split("\t");
+            String code = split[0].trim();
+            String name = split[1].trim();
+
+            List<String> list = Lists.newArrayList();
+            list.add(generate("ry_std_usage_H37010203715"));
+            list.add(generate(code));
+            list.add(generate(name));
+            list.add(generate(""));
+            list.add(generate(""));
+            list.add("now()");
+            list.add("now()");
+            list.add(generate("9999-12-31 23:59:59.000"));
+            list.add("0");
+            String join = String.join(",", list);
+            String r = "(" + join + ")" + COMMA;
+            System.out.println(r);
+        }
+
+
+    }
+
+    /**
+     * 山东-频次
+     */
+    private static void shandong_pinci() {
+        String filePath = "/Users/xuedong/Desktop/shandong_fre.txt";
+        // 使用FileUtil按行读取文件
+        List<String> lines = FileUtil.readLines(new File(filePath), "UTF-8");
+        for (String line : lines) {
+            String[] split = line.split("\t");
+            String code = split[0].trim();
+            String name = split[1].trim();
+
+            List<String> list = Lists.newArrayList();
+            list.add(generate("ry_std_frequency_H37010203715"));
+            list.add(generate(code));
+            list.add(generate(name));
+            list.add(generate(""));
+            list.add(generate(""));
+            list.add("now()");
+            list.add("now()");
+            list.add(generate("9999-12-31 23:59:59.000"));
+            list.add("0");
+
+            String join = String.join(",", list);
+            String r = "(" + join + ")" + COMMA;
+            System.out.println(r);
+
+
+        }
+    }
+
+    private static void extracted() {
         System.out.println(INSERT);
         // 指定要读取的文件路径
         String filePath = "/Users/xuedong/Desktop/export_result.txt";
@@ -51,14 +117,13 @@ public class InsertCreateDemo {
             String r = "(" + join + ")" + COMMA;
             System.out.println(r);
         }
-
-
     }
 
 
     private static String generate(String content) {
         return String.format("'%s'", content.trim());
     }
+
 
 }
 

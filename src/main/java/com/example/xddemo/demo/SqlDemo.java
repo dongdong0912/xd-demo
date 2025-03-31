@@ -7,6 +7,9 @@ import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectExpressionItem;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -17,35 +20,18 @@ import java.util.List;
 public class SqlDemo {
 
     public static void main(String[] args) throws Exception {
-        String sql = "SELECT id, name , sum(age) age FROM users WHERE age > 18 group by id , name ORDER BY name ASC , age DESC";
-        Select select = (Select) CCJSqlParserUtil.parse(sql);
-        PlainSelect selectBody = (PlainSelect) select.getSelectBody();
-        List<OrderByElement> orderElements = selectBody.getOrderByElements();
-        System.out.println(orderElements);
-        // 移除排序部分
-        selectBody.setOrderByElements(null);
-        selectBody.setSelectItems(null);
+
+        String url="asa";
+
+        url="三大事";
 
 
-        //  移除分组部分
-        /*plainSelect.setGroupByElement(null);*/
+        URL urlObj = new URL("http://10.60.10.19/local-kano/MX2449313?token=V1.0_dGFtdFJUT1hEK21aNHR4TjZoMGxQQT09X1RJTUVfQUVTCOUSTOM");
 
-
-
-        // 创建 COUNT(*) 函数表达式
-        Function countFunction = new Function();
-        countFunction.setName("COUNT");
-        countFunction.setAllColumns(true);
-
-        // 创建 SelectExpressionItem，并将 COUNT(*) 函数表达式设置为其表达式
-        SelectExpressionItem countItem = new SelectExpressionItem(countFunction);
-
-
-        selectBody.addSelectItems(countItem);
-
-
-        System.out.println(select);
-
+        try (InputStream inputStream = urlObj.openStream()) {
+        }
+        String fileName = URLEncoder.encode(urlObj.getFile() + ".pdf", "UTF-8");
+        System.out.println(url);
 
     }
 

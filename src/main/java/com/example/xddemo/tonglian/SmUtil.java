@@ -12,9 +12,11 @@ import org.bouncycastle.util.encoders.Hex;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.*;
+import java.security.spec.ECGenParameterSpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
+import java.util.TreeMap;
 
 public class SmUtil {
 
@@ -31,26 +33,46 @@ public class SmUtil {
 
     public static void main(String[] args) throws Exception {
 
+        // 1. 使用 secp256r1 生成密钥对
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("EC");
+        keyGen.initialize(new ECGenParameterSpec("secp256r1"));
+        KeyPair keyPair = keyGen.generateKeyPair();
+
+        // 2. 获取编码后的字节
+        byte[] privateKeyBytes = keyPair.getPrivate().getEncoded();
+        byte[] publicKeyBytes = keyPair.getPublic().getEncoded();
+
+        // 3. 编码成 Base64 格式
+        String privateKeyBase64 = Base64.encodeBase64String(privateKeyBytes);
+        String publicKeyBase64 = Base64.encodeBase64String(publicKeyBytes);
+
         /**商户平台分配的appid,也是签名的certid**/
-        String appid = "00000156";
+        String appid = "00000051";
         /**商户sm2私钥,用于向通联发起请求前进行签名**/
-        String cusPrivateKey = "MIGTAgEAMBMGByqGSM49AgEGCCqBHM9VAYItBHkwdwIBAQQgNqz1EieIP8QVzV7vEmx5e8f7XN7/MIzoeXgEinxcG0agCgYIKoEcz1UBgi2hRANCAAQNfkEgaCQ4cdZ4aD2LWMcnkk5LALQfL05oY8x8XQDIyUM44N15YcTwtFNvHYgyeNRa93vlEUutp935n6rp4yuf";
-        /**商户sm2公钥，需要配置到通联商户平台**/
-        String cusPubKey = "MFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAEKpQC1uKhgt2z9cd8KOULCsWgjBGSdjg008DkPnfFBlOxqCv8v1jAUFn+bqTJxVNOqeRcRqKF2GKAbZXYJtN4ag==";
-
+        String cusPrivateKey = "MIGTAgEAMBMGByqGSM49AgEGCCqBHM9VAYItBHkwdwIBAQQgXnceMRYpZ1mFYk4blKmYiIChDfXQ2tzHb9mu+v1HZbWgCgYIKoEcz1UBgi2hRANCAAQeW6F3uIVI6Urn6cFr5VmUwHQt0K4AhAOq77NMGcPZ2QME4aM4AzfpOaVmI12kFF8NQ37sNkgKTnbkK8V1Fc/FI";
         /**通联平台sm2公钥，用于请求返回或者通联通知的验签**/
-        String tlPubKey = "MFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAE/BnA8BawehBtH0ksPyayo4pmzL/u1FQ2sZcqwOp6bjVqQX4tjo930QAvHZPJ2eez8sCz/RYghcqv4LvMq+kloQ==";
+        String tlPubKey = "MFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAEHluhd7iFSOlK5+nBa+VZlMB0LdCuAIQDqu+zTBnD2dkDBOGjOAM36TmlZiNdpBRfDUN+7DZICk525CvFdRXPxS";
 
-        String blankStr = "请求待签名数据";
-        PrivateKey privkey = privKeySM2FromBase64Str(cusPrivateKey);
-        String sign = signSM3SM2RetBase64(privkey, appid, blankStr.getBytes("UTF-8"));//签名
-        System.out.println(sign);
 
-        String rspBlankStr = "返回待验签数据";//通联返回的明文
-        String rspSign = "AovBKQGUe0xuJ0ox7FgIIX+yB3DzbudgUsnNvJmDV0IdHZtU2Y8vdeUY1pd2vmPUf08hNgdkoz+4WP/D/ktOcA==";//通联返回的签名
-        PublicKey publicKey = pubKeySM2FromBase64Str(tlPubKey);
-        boolean isOk = verifySM3SM2(publicKey, "Allinpay", Base64.decodeBase64(rspSign), rspBlankStr.getBytes("UTF-8"));
-        System.out.println("验签结果:" + isOk);
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put("appid", "00000051");
+        params.put("cusid", "990581007426001");
+        params.put("randomstr", "75016315");
+        params.put("signtype", "SM2");
+        params.put("trxid", "112094120001088317");
+        params.put("version", "11");
+
+        String s = SybUtil.unionSign(params, privateKeyBase64, "SM2");
+        System.out.println(s);
+
+
+        params.put("sign", s);
+
+
+        boolean b = SybUtil.validSign(params, publicKeyBase64, "SM2");
+        System.out.println("验签结果:" + b);
+
+
 
 
     }

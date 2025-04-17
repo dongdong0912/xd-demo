@@ -107,7 +107,7 @@ public class SybUtil {
                         md5(sb.toString().getBytes("UTF-8")).toLowerCase());
             } else if ("SM2".equals(signType)) {
                 PublicKey publicKey = SmUtil.pubKeySM2FromBase64Str(appkey);
-                return SmUtil.verifySM3SM2(publicKey, "Allinpay", Base64.decodeBase64(sign), sb.toString().getBytes("UTF-8"));
+                return SmUtil.verifySM3SM2(publicKey, param.get("appid"), Base64.decodeBase64(sign), sb.toString().getBytes("UTF-8"));
             } else {
                 return rsaVerifyPublickey(sb.toString(), sign, appkey, "UTF-8");
             }

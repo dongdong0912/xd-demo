@@ -46,12 +46,6 @@ public class SmUtil {
         String privateKeyBase64 = Base64.encodeBase64String(privateKeyBytes);
         String publicKeyBase64 = Base64.encodeBase64String(publicKeyBytes);
 
-        /**商户平台分配的appid,也是签名的certid**/
-        String appid = "00000051";
-        /**商户sm2私钥,用于向通联发起请求前进行签名**/
-        String cusPrivateKey = "MIGTAgEAMBMGByqGSM49AgEGCCqBHM9VAYItBHkwdwIBAQQgXnceMRYpZ1mFYk4blKmYiIChDfXQ2tzHb9mu+v1HZbWgCgYIKoEcz1UBgi2hRANCAAQeW6F3uIVI6Urn6cFr5VmUwHQt0K4AhAOq77NMGcPZ2QME4aM4AzfpOaVmI12kFF8NQ37sNkgKTnbkK8V1Fc/FI";
-        /**通联平台sm2公钥，用于请求返回或者通联通知的验签**/
-        String tlPubKey = "MFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAEHluhd7iFSOlK5+nBa+VZlMB0LdCuAIQDqu+zTBnD2dkDBOGjOAM36TmlZiNdpBRfDUN+7DZICk525CvFdRXPxS";
 
 
         TreeMap<String, String> params = new TreeMap<>();

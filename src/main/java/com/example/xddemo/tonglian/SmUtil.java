@@ -33,10 +33,59 @@ public class SmUtil {
 
     public static void main(String[] args) throws Exception {
 
+// 使用 SM2p256v1 曲线
+        String curveName = "sm2p256v1";
+
+        // 初始化 KeyPairGenerator
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC", "BC");
+        keyPairGenerator.initialize(new ECGenParameterSpec(curveName), new SecureRandom());
+
+        // 生成密钥对
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+
+        PrivateKey privateKey = keyPair.getPrivate();
+        PublicKey publicKey = keyPair.getPublic();
+
+        // 输出密钥（Base64 编码）
+        System.out.println("=== SM2 Key Pair ===");
+        System.out.println("Private Key (PKCS#8, Base64):");
+        System.out.println(Base64.encodeBase64String(privateKey.getEncoded()));
+        System.out.println();
+        System.out.println("Public Key (X.509, Base64):");
+        System.out.println(Base64.encodeBase64String(publicKey.getEncoded()));
+
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put("appid", "00000051");
+        params.put("cusid", "990581007426001");
+        params.put("randomstr", "75016315");
+        params.put("signtype", "SM2");
+        params.put("trxid", "112094120001088317");
+        params.put("version", "11");
+
+        String s = SybUtil.unionSign(params, Base64.encodeBase64String(privateKey.getEncoded()), "SM2");
+        System.out.println(s);
+
+
+        params.put("sign11111", s);
+
+
+        boolean b = SybUtil.validSign(params, Base64.encodeBase64String(publicKey.getEncoded()), "SM2");
+        System.out.println("验签结果111:" + b);
+
+
+    }
+
+    private static void test1() throws Exception {
+        System.out.println("======= 所有已加载的安全提供者（Providers） =======");
+        for (Provider provider : Security.getProviders()) {
+            System.out.println("Provider: " + provider.getName());
+        }
+
         // 1. 使用 secp256r1 生成密钥对
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("EC");
         keyGen.initialize(new ECGenParameterSpec("secp256r1"));
         KeyPair keyPair = keyGen.generateKeyPair();
+
 
         // 2. 获取编码后的字节
         byte[] privateKeyBytes = keyPair.getPrivate().getEncoded();
@@ -45,7 +94,6 @@ public class SmUtil {
         // 3. 编码成 Base64 格式
         String privateKeyBase64 = Base64.encodeBase64String(privateKeyBytes);
         String publicKeyBase64 = Base64.encodeBase64String(publicKeyBytes);
-
 
 
         TreeMap<String, String> params = new TreeMap<>();
@@ -65,10 +113,6 @@ public class SmUtil {
 
         boolean b = SybUtil.validSign(params, publicKeyBase64, "SM2");
         System.out.println("验签结果:" + b);
-
-
-
-
     }
 
     /**

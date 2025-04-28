@@ -53,7 +53,7 @@ public class YaPeiPdfDDemo {
             // 填充颜色
             fillColor(contentByte);
             Phrase signaturePhrase = new Phrase("专家阅片结论:", PdfFontUtils.boldBlack10);
-            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 58, 755, 0);
+            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 58, 750, 0);
 
 
             Phrase pagination = new Phrase(String.valueOf(numPages + 1), PdfFontUtils.boldBlack10);

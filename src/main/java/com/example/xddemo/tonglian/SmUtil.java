@@ -33,7 +33,12 @@ public class SmUtil {
 
     public static void main(String[] args) throws Exception {
 
-// 使用 SM2p256v1 曲线
+
+
+        String ss="ce6EAOj4rhoBMJM5MJCNG4qQ/CVMTWkoRuSGpSzRAnD3U3V5QyHkQUEej2eZXRaa+qSbw2/IJJSPV0sPuAia1+ccb7OnvxyZqkV9wQyimX6qAMz0K+UWFhQ5McCcQ/XsFhhezoVd5QgL7PtdvuK1AtjuzA3J9yzNmwuPssPnKnc=";
+
+        System.out.println(ss.length());
+
         String curveName = "sm2p256v1";
 
         // 初始化 KeyPairGenerator

@@ -25,8 +25,8 @@ public class YaPeiPdfDDemo {
 
 
         // 指定 PDF 文件路径
-        String filePath = "/Users/xuedong/Desktop/雅培线上.pdf";
-        String outPath = "/Users/xuedong/Desktop/202412171.pdf";
+        String filePath = "/Users/xuedong/Desktop/yapei1.pdf";
+        String outPath = "/Users/xuedong/Desktop/20250428.pdf";
 
         PdfReader reader = new PdfReader(filePath);
 
@@ -53,7 +53,7 @@ public class YaPeiPdfDDemo {
             // 填充颜色
             fillColor(contentByte);
             Phrase signaturePhrase = new Phrase("专家阅片结论:", PdfFontUtils.boldBlack10);
-            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 67, 740, 0);
+            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 58, 755, 0);
 
 
             Phrase pagination = new Phrase(String.valueOf(numPages + 1), PdfFontUtils.boldBlack10);
@@ -76,7 +76,7 @@ public class YaPeiPdfDDemo {
             paragraph.setFont(PdfFontUtils.normalBlack8);
 
             ColumnText columnText = new ColumnText(contentByte);
-            columnText.setSimpleColumn(paragraph, 40, 300, 570, 735, 0, Element.ALIGN_LEFT);
+            columnText.setSimpleColumn(paragraph, 30, 300, 570, 750, 0, Element.ALIGN_LEFT);
             columnText.addElement(paragraph);
             columnText.go();
 
@@ -99,7 +99,7 @@ public class YaPeiPdfDDemo {
         contentByte.saveState();
         contentByte.setColorFill(BaseColor.WHITE);
         //contentByte.rectangle(0, 0, 600, 768);
-        contentByte.rectangle(0, 0, 600, 752);
+        contentByte.rectangle(0, 0, 600, 760);
         contentByte.fill();
         contentByte.restoreState();
     }

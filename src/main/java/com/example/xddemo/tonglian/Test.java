@@ -2,6 +2,7 @@ package com.example.xddemo.tonglian;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import java.net.URL;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -21,6 +22,15 @@ public class Test {
 
 
     public static void main(String[] args) throws Exception {
+
+        String urlStr = "https://adc-dht-h5.freestyle-libre.cn/DHT/HcpPdf/e5d23bad-c916-4b07-ac18-a1907430f87b/報告1.pdf";
+
+        String url2="http://10.60.10.19/local-kano/H8S449818";
+        // 使用 java.net.URL 提取主机名
+        URL url = new URL(url2);
+        String host = url.getHost();
+
+        System.out.println(host);
 
     }
 

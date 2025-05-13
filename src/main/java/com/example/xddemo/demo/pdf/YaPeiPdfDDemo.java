@@ -26,7 +26,7 @@ public class YaPeiPdfDDemo {
 
         // 指定 PDF 文件路径
         String filePath = "/Users/xuedong/Desktop/yapei1.pdf";
-        String outPath = "/Users/xuedong/Desktop/20250428.pdf";
+        String outPath = "/Users/xuedong/Desktop/20250513.pdf";
 
         PdfReader reader = new PdfReader(filePath);
 
@@ -40,6 +40,12 @@ public class YaPeiPdfDDemo {
             int numPages = reader.getNumberOfPages();
             // 创建 PdfStamper 对象来修改现有 PDF 文件并添加新的 PDF 页面
             PdfStamper stamper = new PdfStamper(reader, outputStream);
+
+            for (int i = 0; i < numPages; i++) {
+                PdfContentByte contentByte = stamper.getOverContent(i + 1);
+
+                fillColor1(contentByte);
+            }
             // 获取 PDF 的最后一页
             PdfImportedPage page = stamper.getImportedPage(reader, numPages);
             // 在原始 PDF 的末尾添加最后一页
@@ -56,8 +62,9 @@ public class YaPeiPdfDDemo {
             ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 58, 750, 0);
 
 
-            Phrase pagination = new Phrase(String.valueOf(numPages + 1), PdfFontUtils.boldBlack10);
-            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, pagination, 570, 20, 0);
+//            int a = numPages + 1;
+//            Phrase pagination = new Phrase(String.valueOf(numPages + 1), PdfFontUtils.boldBlack10);
+//            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, pagination, 570, 20, 0);
 
             //结论
             Paragraph paragraph = new Paragraph();
@@ -100,6 +107,15 @@ public class YaPeiPdfDDemo {
         contentByte.setColorFill(BaseColor.WHITE);
         //contentByte.rectangle(0, 0, 600, 768);
         contentByte.rectangle(0, 0, 600, 760);
+        contentByte.fill();
+        contentByte.restoreState();
+    }
+
+    private static void fillColor1(PdfContentByte contentByte) {
+        contentByte.saveState();
+        contentByte.setColorFill(BaseColor.WHITE);
+        //contentByte.rectangle(0, 0, 600, 768);
+        contentByte.rectangle(0, 0, 595.28, 17);
         contentByte.fill();
         contentByte.restoreState();
     }

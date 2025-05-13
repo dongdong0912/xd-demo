@@ -1,5 +1,6 @@
 package com.example.xddemo.demo.pdf;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
@@ -26,7 +27,7 @@ public class YaPeiPdfDDemo {
 
         // 指定 PDF 文件路径
         String filePath = "/Users/xuedong/Desktop/yapei1.pdf";
-        String outPath = "/Users/xuedong/Desktop/20250513.pdf";
+        String outPath = "/Users/xuedong/Desktop/20250514.pdf";
 
         PdfReader reader = new PdfReader(filePath);
 
@@ -41,15 +42,23 @@ public class YaPeiPdfDDemo {
             // 创建 PdfStamper 对象来修改现有 PDF 文件并添加新的 PDF 页面
             PdfStamper stamper = new PdfStamper(reader, outputStream);
 
-            for (int i = 0; i < numPages; i++) {
-                PdfContentByte contentByte = stamper.getOverContent(i + 1);
 
-                fillColor1(contentByte);
-            }
             // 获取 PDF 的最后一页
             PdfImportedPage page = stamper.getImportedPage(reader, numPages);
+
+
+            for (int i = 0; i < numPages; i++) {
+                PdfContentByte contentByte = stamper.getOverContent(i + 1);
+                fillColor1(contentByte);
+                String result = StrUtil.format("第{}页/共{}页", i + 1, numPages + 1);
+                Phrase pagination = new Phrase(result, PdfFontUtils.boldBlack10);
+                ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, pagination, page.getWidth() / 2, 20, 0);
+            }
+
             // 在原始 PDF 的末尾添加最后一页
             stamper.insertPage(numPages + 1, reader.getPageSize(numPages));
+
+
             PdfContentByte contentByte = stamper.getUnderContent(numPages + 1);
 
             System.out.println(page.getHeight());
@@ -62,9 +71,10 @@ public class YaPeiPdfDDemo {
             ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, signaturePhrase, 58, 750, 0);
 
 
-//            int a = numPages + 1;
-//            Phrase pagination = new Phrase(String.valueOf(numPages + 1), PdfFontUtils.boldBlack10);
-//            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, pagination, 570, 20, 0);
+            String result = StrUtil.format("第{}页/共{}页", numPages + 1, numPages + 1);
+            Phrase pagination = new Phrase(result, PdfFontUtils.boldBlack10);
+            ColumnText.showTextAligned(contentByte, Element.ALIGN_CENTER, pagination, page.getWidth() / 2, 20, 0);
+
 
             //结论
             Paragraph paragraph = new Paragraph();

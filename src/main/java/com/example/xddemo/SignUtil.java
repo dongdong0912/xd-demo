@@ -15,8 +15,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.guahao.demo.test.Constant.APPSECRET;
-import static com.guahao.demo.test.Constant.SIGN_HEAD_LIST;
+import static com.example.xddemo.demo.Constant.APPSECRET;
+import static com.example.xddemo.demo.Constant.SIGN_HEAD_LIST;
 
 
 public class SignUtil {

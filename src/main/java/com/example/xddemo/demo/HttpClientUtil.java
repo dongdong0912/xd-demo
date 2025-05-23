@@ -17,9 +17,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -33,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.guahao.demo.test.Constant.CHARSET;
+import static com.example.xddemo.demo.Constant.CHARSET;
 
 
 public class HttpClientUtil {
@@ -138,39 +135,7 @@ public class HttpClientUtil {
         return StringUtils.EMPTY;
     }
 
-    public static String uploadFile(String url,
-                                         Map<String, String> headers,
-                                         Map<String,String> bizParams,
-                                         File file) throws Exception {
-        HttpPost httpPost = new HttpPost(url);
-        if (Objects.nonNull(headers) && !headers.isEmpty()) {
-            headers.forEach(httpPost::addHeader);
-        }
-        MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create().addPart("file", new FileBody(file));
-        if (Objects.nonNull(bizParams) && !bizParams.isEmpty()){
-            bizParams.forEach((key,value) -> {
-                multipartEntityBuilder.addPart(key, new StringBody(value,ContentType.MULTIPART_FORM_DATA));
-            });
-        }
-        HttpEntity reqEntity = multipartEntityBuilder.build();
-        httpPost.setEntity(reqEntity);
-        HttpEntity resEntity = null;
-        try {
-            CloseableHttpClient httpClient = HttpClients.createDefault();
-            CloseableHttpResponse response = httpClient.execute(httpPost);
-            resEntity = response.getEntity();
-            if (resEntity != null) {
-                return EntityUtils.toString(response.getEntity(), Charset.forName("UTF-8"));
-            }
-        } catch (Exception e) {
-            try {
-                EntityUtils.consume(resEntity);
-            } catch (Exception io) {
-                throw io;
-            }
-        }
-        return null;
-    }
+
 
     private static void setHttpHeader(Map<String, String> headers, HttpRequest httpPost) {
         if (null == headers || headers.isEmpty()) {

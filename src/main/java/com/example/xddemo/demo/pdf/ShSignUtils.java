@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 老的开放平台的签名工具
  * Author: xuedong
  * Date: 2024/10/24
  */

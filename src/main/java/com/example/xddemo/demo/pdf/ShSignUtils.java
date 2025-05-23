@@ -95,6 +95,8 @@ public class ShSignUtils {
         StringBuilder stringBuilder = new StringBuilder();
         for (String key : keys) {
             String value = map.get(key);
+            System.out.println(key);
+            System.out.println(value);
             stringBuilder.append(key).append(value);
         }
         return stringBuilder.toString();

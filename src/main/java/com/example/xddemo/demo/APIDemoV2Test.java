@@ -10,6 +10,7 @@ package com.example.xddemo.demo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.xddemo.SignUtil;
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.Instant;
@@ -23,6 +24,7 @@ import static com.example.xddemo.demo.Constant.*;
 /**
  * 微医开放平台V2版本调用demo
  */
+@Data
 public class APIDemoV2Test {
     /**
      * 具体业务参数

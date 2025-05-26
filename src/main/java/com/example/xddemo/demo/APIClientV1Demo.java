@@ -9,6 +9,7 @@ package com.example.xddemo.demo;/*
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.parser.Feature;
+import com.example.xddemo.demo.pdf.Saike;
 import com.example.xddemo.demo.pdf.ShSignUtils;
 import com.google.common.collect.Lists;
 import com.wedoctor.cloud.open.api.bean.ApiRequestHeaderDTO;
@@ -18,8 +19,10 @@ import com.wedoctor.cloud.open.api.constant.Constant;
 import com.wedoctor.cloud.open.api.util.BeanUtil;
 import com.wedoctor.cloud.open.api.util.HttpClientUtil;
 import com.wedoctor.cloud.open.api.util.RequestUtil;
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import java.time.Instant;
 import java.util.Date;
@@ -50,15 +53,42 @@ public class APIClientV1Demo {
     }
 
     public static void main(String[] args) {
-        APIClientV1Demo clientV1Demo = new APIClientV1Demo("31560248", "66D11B7DFE4BF3BCD888DEC84E9CC666", "https://openapi.shwyyy.com/router/rest");
-        CicReportSaveReq cicReportSaveReq = new CicReportSaveReq();
-        cicReportSaveReq.setReq(param());
-//        cicReportSaveReq.setApiMethod("guahao.cic.report.save");
-//        cicReportSaveReq.setApiReqUrl("http://172.16.0.128/router/rest");
-//        cicReportSaveReq.setApiProductCode("1xqS469X9");
-        CicReportSaveRes res = clientV1Demo.execute(cicReportSaveReq, new TypeReference<CicReportSaveRes>() {
-        });
-        System.out.println(JSON.toJSONString(res));
+
+
+        test();
+
+//        APIClientV1Demo clientV1Demo = new APIClientV1Demo("31560248", "66D11B7DFE4BF3BCD888DEC84E9CC666", "https://openapi.shwyyy.com/router/rest");
+//        CicReportSaveReq cicReportSaveReq = new CicReportSaveReq();
+//        cicReportSaveReq.setReq(param());
+////        cicReportSaveReq.setApiMethod("guahao.cic.report.save");
+////        cicReportSaveReq.setApiReqUrl("http://172.16.0.128/router/rest");
+////        cicReportSaveReq.setApiProductCode("1xqS469X9");
+//        CicReportSaveRes res = clientV1Demo.execute(cicReportSaveReq, new TypeReference<CicReportSaveRes>() {
+//        });
+//        System.out.println(JSON.toJSONString(res));
+    }
+
+
+    @SneakyThrows
+    public static void test() {
+
+
+        Map<String, String> headerMap = new HashMap<>();
+        headerMap.put(Constant.APPKEY, "wy7SsUiaf91828Os");
+        headerMap.put(Constant.METHOD, "guahao.cic.saike.save");
+        headerMap.put(Constant.TIMESTAMP, String.valueOf(Instant.now().toEpochMilli()));
+        headerMap.put(Constant.MESSAGE_ID, UUID.randomUUID().toString());
+
+
+        Map<String, String> parameters = new HashMap<>();
+
+        parameters.put("req", "1iYdLwu1ExWJOsWkdmbm1adtmjIUZsXKz+Ry7gFQpvt9B/YPO6WSrY4EnYmQeENiadqCB8dexGI/qieRzqaXGuFrz6GTZS5/rx/YWdNykuvsO19yxo6DVLtUmNVrDHEqRHkaG0gOYahplTo9FFjZc+fhG6F1d/6vY7a5ag/stgt7Vq2FMdLdCm86+2StVxctJ5U4TqEAiZRMize/KO5hEuz8Ok5I1+tfkn4GXNNjG3owKuB4j1+WMKhnWxICMwldRd7pcU9mM3TKz807AdbZ+MucDfKhuibZ9Fkre/jciWrBvVj98r8XidhdltuqZi4F840sMVtyhX7TiCqsepHPyV2Tv/ReS/DmwVc5UeVr2DvTyFR/wvrO0wtA5Yv8ckzPK/ks6Y3qStN5b2Y9aELTCAH4GxWPKJQWw7fa40QmvIe86fyy8QUwVB/BfiInjNkVFnbmSc2AI8RTZl+rVcHBEfJtxHirr/9+slLpEgI5A9CPKyaHaxSipxpE8npBi229BcVCyUdBBwdxze5wKKy3TbixN6neLHY47jtn+zPoULcZS4GiaRClC92US1pNdNbNogD2oKp6c25T/MYDAn5+zDTTYPawMp91WXgvxSXbE3Zll3RcJbIhaWFgQSL+xNpEAmBo3rPgikT57QZVvJq529rcs+iLK1QQCNeBtnvNbHDSPx0zkWBmkmoKvTYXVXf/FPDMm7xDe5ueQvlTaP/tqc1IPPoUzLpWjekjDoR8KqMjqJlLb1OSm7x7iC5KHdfZiqsLEO67V4bjZM4E2Ll8Xhu/gBt3XWoT6mMQinpyTAVTm0Tre41kemmxOJhSB7T5l3Rqwa+jYLQKW+t2xNObolNf8tQ4MrghuMEdCac4Ed4/zryXnoI9m8qYnjAbA0SbWKhmKKPTPMWz9ZYnQI9CEQOAkzkzNy5R7aXW8LgfozGFU8+xiDHY2bUBtmXDRmEc+Shg0cmFFogJHm3DfgtX/lRZwvI+5+F7BYXcRcwv4pISZb11WPX/Y0pYLxGgFWi+ChV+KWlLeX8Hnk4IkK9zaxVdpdg47Ope6NKcM+87C6mVCXytXKYMhpSFHyKiZig8ixODM+6MDr6gm8lc6T6xSjqx0rTPaScBFWAZ4C/XUIwRwH4X+REKhmHUeo8RlykGaI7Q7uze15dm/AgiGl9WF0z4z9zFplqMsTMyepKBwfuXC4Eidx/s/RVORH0wJ82OOyH4zNk6J2LqdI4b5N7mP6SCsE92OhXBFXl4yLmECPGhfN5Zuu0gxw5/CaOU0EinZ8yb/Y2IUyEBYsnEqx2ML8C6sey80hoKCThdp2SH5/88ut5uJGHcLmvC7KDZQFVf77b+x8eP9rdXVcG7neSfW75faqB1iaDIGmPXfcZALvc=");
+
+
+        String s = postForm("http://openapi.guahao-test.com/router/rest", headerMap, parameters, "95a57SAU37G5797811v106lC36q1Nnca", HttpClients.createDefault());
+
+        System.out.println(s);
+
     }
 
 

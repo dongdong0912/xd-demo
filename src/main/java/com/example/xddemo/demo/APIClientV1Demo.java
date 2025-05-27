@@ -55,22 +55,14 @@ public class APIClientV1Demo {
     public static void main(String[] args) {
 
 
-        test();
+        saiKeTest();
 
-//        APIClientV1Demo clientV1Demo = new APIClientV1Demo("31560248", "66D11B7DFE4BF3BCD888DEC84E9CC666", "https://openapi.shwyyy.com/router/rest");
-//        CicReportSaveReq cicReportSaveReq = new CicReportSaveReq();
-//        cicReportSaveReq.setReq(param());
-////        cicReportSaveReq.setApiMethod("guahao.cic.report.save");
-////        cicReportSaveReq.setApiReqUrl("http://172.16.0.128/router/rest");
-////        cicReportSaveReq.setApiProductCode("1xqS469X9");
-//        CicReportSaveRes res = clientV1Demo.execute(cicReportSaveReq, new TypeReference<CicReportSaveRes>() {
-//        });
-//        System.out.println(JSON.toJSONString(res));
+
     }
 
 
     @SneakyThrows
-    public static void test() {
+    public static void saiKeTest() {
 
 
         Map<String, String> headerMap = new HashMap<>();

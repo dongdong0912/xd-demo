@@ -7,6 +7,7 @@
  */
 package com.example.xddemo;
 
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 
 import java.security.MessageDigest;
@@ -97,5 +98,16 @@ public class SignUtil {
             stringBuilder.append(key).append(value);
         }
         return stringBuilder.toString();
+    }
+
+
+    @SneakyThrows
+    public static void main(String[] args) {
+        String s="appsecretappkeywy7SsUiaf91828Osmethodguahao.cic.saike.savereq1iYdLwu1ExWJOsWkdmbm1adtmjIUZsXKz+Ry7gFQpvt9B/YPO6WSrY4EnYmQeENiadqCB8dexGI/qieRzqaXGuFrz6GTZS5/rx/YWdNykuvsO19yxo6DVLtUmNVrDHEqRHkaG0gOYahplTo9FFjZc+fhG6F1d/6vY7a5ag/stgt7Vq2FMdLdCm86+2StVxctJ5U4TqEAiZRMize/KO5hEuz8Ok5I1+tfkn4GXNNjG3owKuB4j1+WMKhnWxICMwldRd7pcU9mM3TKz807AdbZ+MucDfKhuibZ9Fkre/jciWrBvVj98r8XidhdltuqZi4F840sMVtyhX7TiCqsepHPyV2Tv/ReS/DmwVc5UeVr2DvTyFR/wvrO0wtA5Yv8ckzPK/ks6Y3qStN5b2Y9aELTCAH4GxWPKJQWw7fa40QmvIe86fyy8QUwVB/BfiInjNkVFnbmSc2AI8RTZl+rVcHBEfJtxHirr/9+slLpEgI5A9CPKyaHaxSipxpE8npBi229BcVCyUdBBwdxze5wKKy3TbixN6neLHY47jtn+zPoULcZS4GiaRClC92US1pNdNbNogD2oKp6c25T/MYDAn5+zDTTYPawMp91WXgvxSXbE3Zll3RcJbIhaWFgQSL+xNpEAmBo3rPgikT57QZVvJq529rcs+iLK1QQCNeBtnvNbHDSPx0zkWBmkmoKvTYXVXf/FPDMm7xDe5ueQvlTaP/tqc1IPPoUzLpWjekjDoR8KqMjqJlLb1OSm7x7iC5KHdfZiqsLEO67V4bjZM4E2Ll8Xhu/gBt3XWoT6mMQinpyTAVTm0Tre41kemmxOJhSB7T5l3Rqwa+jYLQKW+t2xNObolNf8tQ4MrghuMEdCac4Ed4/zryXnoI9m8qYnjAbA0SbWKhmKKPTPMWz9ZYnQI9CEQOAkzkzNy5R7aXW8LgfozGFU8+xiDHY2bUBtmXDRmEc+Shg0cmFFogJHm3DfgtX/lRZwvI+5+F7BYXcRcwv4pISZb11WPX/Y0pYLxGgFWi+ChV+KWlLeX8Hnk4IkK9zaxVdpdg47Ope6NKcM+87C6mVCXytXKYMhpSFHyKiZig8ixODM+6MDr6gm8lc6T6xSjqx0rTPaScBFWAZ4C/XUIwRwH4X+REKhmHUeo8RlykGaI7Q7uze15dm/AgiGl9WF0z4z9zFplqMsTMyepKBwfuXC4Eidx/s/RVORH0wJ82OOyH4zNk6J2LqdI4b5N7mP6SCsE92OhXBFXl4yLmECPGhfN5Zuu0gxw5/CaOU0EinZ8yb/Y2IUyEBYsnEqx2ML8C6sey80hoKCThdp2SH5/88ut5uJGHcLmvC7KDZQFVf77b+x8eP9rdXVcG7neSfW75faqB1iaDIGmPXfcZALvc=timestamp174826207007795a57SAU37G5797811v106lC36q1Nnca";
+        byte[] infoMd5 = encryptMD5(s.getBytes("UTF-8"));
+        String s1 = byte2hex(infoMd5);
+
+        System.out.println(s1);
+
     }
 }
